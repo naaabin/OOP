@@ -49,3 +49,11 @@ Route::get('/todolist', [Taskmanager::class, 'get_projects_users']);
 Route::post('/addtask', [Taskmanager::class, 'add_task']);
 
 Route::get('/taskdisplay', [Taskmanager::class , 'Displaytasks']);
+
+Route::get('/edit-task' ,[Taskmanager::class, 'edittaskpage']);
+Route::post('/edittask', [Taskmanager::class, 'edittask']);
+
+
+Route::get('/delete-task' ,[Taskmanager::class, 'deletetask']);
+
+

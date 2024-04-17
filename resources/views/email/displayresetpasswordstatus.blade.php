@@ -9,6 +9,5 @@
             {{ session('message') }}
         </div>
         @endif
-        test
     </body>
 </html>

@@ -82,7 +82,7 @@ class Taskmanager extends Controller
                     $project_selected = projects::where('project_name',$projectname)->first();
                    
                     $project_tasks = new project_task();
-                    $project_tasks->project_id = $project_selected->Project_id;
+                    $project_tasks->project_id = $project_selected->project_id;
                     $project_tasks->task_id =   $lastInsertedId;
                     $project_tasks->save();
                 }
@@ -116,10 +116,67 @@ class Taskmanager extends Controller
     public function Displaytasks()
     {
         // Retrieve tasks
-        $tasks = tasks::with('task_user', 'task_files', 'projects')->get();
-
-        // Pass tasks to the view
-        return view('taskdisplay', ['tasks' => $tasks]);
+        $tasks = tasks::with('task_user', 'task_files', 'projects')->paginate(2);
+        $notaskerror = '';
+        if($tasks->isEmpty())
+        {
+            $notaskerror = 'No tasks to display, please add tasks';
+        }
+        return view('taskdisplay', ['tasks' => $tasks, 'notaskerror' => $notaskerror]);
     }
 
+    public function edittaskpage(Request $request)
+    {
+            $id = $request->query('task_id');
+            $task = tasks::find($id);
+            if($task==null)
+            {
+                abort(404, 'Invalid task id');
+                
+            }
+            else
+            {
+                 return view('edittask')->with('task',$task);
+            }
+    }
+
+    public function edittask(Request $request)
+    {   
+        $id = $request->input('id');
+        $task = tasks::find($id);
+        $task->task = $request->input('new_task');
+        $task->description = $request->input('new_description');
+        $task->priority = $request->input('new_priority');
+        if($task->save())
+        {
+            return redirect('/taskdisplay')->with('message', 'The selected task has been updated successfully');
+        }
+        else
+        {
+            return redirect('/taskdisplay')->with('error', 'Task update failed');
+        }
+    }
+
+   
+    public function deletetask(Request $request)
+    {
+            $id = $request->query('task_id');
+            $task = tasks::find($id);
+            if($task==null)
+            {
+                abort(404, 'Invalid task id');
+            }
+            else
+            {
+                $delete_status = tasks::destroy($id); 
+                if($delete_status)
+                {
+                    return redirect('/taskdisplay')->with('message', 'The selected task has been deleted successfully');
+                }
+                else
+                {
+                    return redirect('/taskdisplay')->with('error', 'Task deletion failed');
+                }
+            }
+    }
 }
