@@ -11,11 +11,10 @@ class projects extends Model
     protected $table = 'projects';
     protected $primaryKey = 'project_id';
     protected $fillable = ['project_name', 'description'];
-    
-
+        
     public function tasks()
     {
-        return $this->belongsToMany(tasks::class, 'project_task');        //defines many to many relationship between projects and tasks
-                                                            //one project can be associated with many tasks.
+        return $this->belongsToMany(tasks::class, 'project_task', 'project_id', 'task_id');        
+                                                           
     }
 }

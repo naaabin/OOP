@@ -48,5 +48,9 @@ class User extends Authenticatable
     ];
 
 
-    
+    public function tasks()
+    {
+        return $this->belongsToMany(tasks::class, 'task_user', 'id', 'task_id');
+    }
+
 }

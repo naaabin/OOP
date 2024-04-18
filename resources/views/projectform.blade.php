@@ -41,7 +41,7 @@
             font-weight: bold;
         }
 
-        input, button {
+        input{
             margin-bottom: 10px;
             padding: 8px;
             width: 100%;
@@ -78,14 +78,15 @@
         <label for="Description">Description:</label>
         <input type="text" name="description" id="Description" required>
         <button type="submit" name="add" class="btn btn-success">Add</button> 
-        <a href="todolist" class="btn btn-primary">Add tasks</a>
-        <a href="taskdisplay" class="btn btn-primary">Go to tasks page</a>
-        <a href="users" class="btn btn-primary">Users</a>
-        <a href="Dashboardd" class="btn btn-primary">Go to filter page</a>
+        <a href="/todolist" class="btn btn-primary">Add tasks</a>
+        <a href="/taskdisplay" class="btn btn-primary">Go to tasks page</a>
+        <a href="/users" class="btn btn-primary">Users</a>
+        <a href="/filtering" class="btn btn-primary">Go to filter page</a>
         <a href="/changepassword" class="btn btn-primary">Change Password</a>
-        <a href="logout" class="btn btn-danger">Logout</a>
+        <a href="/logout" class="btn btn-danger">Logout</a>
     </form>
 </div>
 
+@include('projectdisplay');
 </body>
 </html>

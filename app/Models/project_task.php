@@ -13,3 +13,4 @@ class project_task extends Model
     protected $fillable = ['task_id','project_id'];
     public $timestamps = false;
 }
+

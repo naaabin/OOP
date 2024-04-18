@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\projects;
 
 use Illuminate\Http\Request;
 
@@ -67,7 +68,9 @@ class Formcontroller extends Controller
 
     public function project_form()
     {
-        return view('projectform');
+        $projects = projects::with(['tasks.users', 'tasks.files'])->get();
+        return view('projectform', ['projects' => $projects]);
+       
     }
     
 

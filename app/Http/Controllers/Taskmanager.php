@@ -62,15 +62,14 @@ class Taskmanager extends Controller
                     $fileIDs[] = $fileRecord->file_id;   //last inserted file id     
                 }
                 
-            }
-            
-            // Insert into task_file data into the database
-            foreach ($fileIDs as $fileID) 
-            {
-                $task_file = new task_files();
-                $task_file->task_id =   $lastInsertedId;
-                $task_file->file_id = $fileID;
-                $task_file->save();
+                // Insert into task_file data into the database
+                foreach ($fileIDs as $fileID) 
+                {
+                    $task_file = new task_files();
+                    $task_file->task_id =   $lastInsertedId;
+                    $task_file->file_id = $fileID;
+                    $task_file->save();
+                }
             }
 
             //Insert intp project_task table
@@ -86,6 +85,10 @@ class Taskmanager extends Controller
                     $project_tasks->task_id =   $lastInsertedId;
                     $project_tasks->save();
                 }
+            }
+            else
+            {
+                throw new \Exception('Please select at least one project');
             }
             
             //Insert into task_user table
@@ -116,7 +119,7 @@ class Taskmanager extends Controller
     public function Displaytasks()
     {
         // Retrieve tasks
-        $tasks = tasks::with('task_user', 'task_files', 'projects')->paginate(2);
+        $tasks = tasks::with('users', 'files', 'projects')->get();
         $notaskerror = '';
         if($tasks->isEmpty())
         {

@@ -13,17 +13,14 @@ class tasks extends Model
    protected $fillable = ['task','description','priority'];
    public $timestamps = false;
 
-
-
-   public function task_user()
+    public function users()
     {
-        return $this->hasMany(task_user::class, 'task_id');   //defines a one-to-many relationship between a task and its users
-                                                              //one task can be assigned to many users
+        return $this->belongsToMany(User::class, 'task_user', 'task_id', 'id');  
     }
 
-    public function task_files()
+    public function files()
     {
-        return $this->hasMany(task_files::class, 'task_id');
+        return $this->belongsToMany(files::class, 'task_files', 'task_id', 'file_id');
     }
 
     public function projects()

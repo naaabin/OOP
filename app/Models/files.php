@@ -13,8 +13,8 @@ class files extends Model
    protected $fillable = ['file_name','file_loc','task_id'];
    public $timestamps = false;
 
-   public function tasks()
+    public function tasks()
     {
-        return $this->belongsTo(tasks::class);
+        return $this->belongsToMany(tasks::class, 'task_files', 'file_id', 'task_id');
     }
 }

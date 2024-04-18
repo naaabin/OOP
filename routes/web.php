@@ -55,5 +55,10 @@ Route::post('/edittask', [Taskmanager::class, 'edittask']);
 
 
 Route::get('/delete-task' ,[Taskmanager::class, 'deletetask']);
+Route::get('/projectdisplay', [Projectmanager::class , 'Displayprojects']);
 
+Route::get('/users', [Projectmanager::class , 'userdashboard']);
+Route::get('/filtering', [Projectmanager::class , 'filterpage']);
 
+Route::post('/processfilter', [Projectmanager::class , 'process_filter']);
+Route::get('/processfilter', [Projectmanager::class , 'process_filter']);

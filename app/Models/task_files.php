@@ -13,13 +13,5 @@ class task_files extends Model
    protected $fillable = ['task_id','file_id'];
    public $timestamps = false;
 
-   public function tasks()
-   {
-    return $this->belongsTo(tasks::class, 'task_id');
-   }
-
-   public function files()
-   {
-    return $this->belongsTo(files::class, 'file_id');
-   }
+ 
 }
