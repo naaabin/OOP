@@ -15,6 +15,6 @@ class files extends Model
 
     public function tasks()
     {
-        return $this->belongsToMany(tasks::class, 'task_files', 'file_id', 'task_id');
+        return $this->belongsTo(tasks::class, 'task_id', 'task_id');
     }
 }

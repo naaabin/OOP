@@ -66,8 +66,10 @@ class Formcontroller extends Controller
 
     }
 
-    public function project_form()
+    public function project_form(Request $request)
     {
+        $request->session()->forget('selectedUser');
+        $request->session()->forget('selectedProject');
         $projects = projects::with(['tasks.users', 'tasks.files'])->get();
         return view('projectform', ['projects' => $projects]);
        

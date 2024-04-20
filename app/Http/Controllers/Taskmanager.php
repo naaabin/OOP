@@ -7,6 +7,7 @@ use App\Models\tasks;
 use App\Models\files;
 use App\Models\task_files;
 use App\Models\project_task;
+use App\Models\project_user;
 use App\Models\task_user;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -74,16 +75,17 @@ class Taskmanager extends Controller
 
             //Insert intp project_task table
             if($request->has('selectedProjects'))
-            {    
+            {      $projectIDs = array();
                 
                 foreach ($request->input('selectedProjects') as $projectname)
                 {
                     $project_selected = projects::where('project_name',$projectname)->first();
-                   
                     $project_tasks = new project_task();
                     $project_tasks->project_id = $project_selected->project_id;
                     $project_tasks->task_id =   $lastInsertedId;
+                 
                     $project_tasks->save();
+                    $projectIDs[] = $project_tasks->project_id; 
                 }
             }
             else
@@ -93,7 +95,7 @@ class Taskmanager extends Controller
             
             //Insert into task_user table
             if($request->has('selectedUsers'))
-            {    
+            {      $UserIDs = array();
                 
                 foreach ($request->input('selectedUsers') as $user)
                 {
@@ -102,9 +104,24 @@ class Taskmanager extends Controller
                     $task_users = new task_user();
                     $task_users->id = $user_selected->id;
                     $task_users->task_id =   $lastInsertedId;
+                   
                     $task_users->save();
+                    $userIDs[] = $user_selected->id;
                 }
             }
+
+            foreach ($projectIDs as $projectID)
+            {
+                foreach ($userIDs as $userID)
+                {
+                    $project_user = new project_user();
+                    $project_user->project_id = $projectID;
+                    $project_user->id = $userID;
+                    $project_user->save();
+                }
+            }
+            
+            
                
         });
         return redirect('/todolist')->with('message', 'Task and its details added successfully'); 
