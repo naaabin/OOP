@@ -1,3 +1,6 @@
+@if(!session('user_id'))
+    <script>window.location.href = '/loginform';</script>
+@endif
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,18 +108,18 @@
     @foreach($users as $user)
         <option value="{{ $user->id }}" {{ (session('selectedUser') == $user->id ? "selected":"") }}>{{ $user->name }}</option>
     @endforeach
-</select>
+    </select>
 
-<label for="projects"><h2>Projects</h2></label>
-<select name="ProjectDropdownData">
-    <option value="">Select a project</option>
-    @foreach($projects as $project)
-        <option value="{{ $project->project_id }}" {{ (session('selectedProject') == $project->project_id ? "selected":"") }}>{{ $project->Project_name }}</option>
-    @endforeach
-</select>
-        <button type="submit" name="submit">Submit</button> 
-        <a href="/projectform"><button type = "button" name="Back">Back </button>  </a>
-    </form>
+    <label for="projects"><h2>Projects</h2></label>
+    <select name="ProjectDropdownData">
+        <option value="">Select a project</option>
+        @foreach($projects as $project)
+            <option value="{{ $project->project_id }}" {{ (session('selectedProject') == $project->project_id ? "selected":"") }}>{{ $project->Project_name }}</option>
+        @endforeach
+    </select>
+            <button type="submit" name="submit">Submit</button> 
+            <a href="/projectform"><button type = "button" name="Back">Back </button>  </a>
+        </form>
 
 
  <h1>All Tasks and Their Details</h1>
@@ -159,7 +162,6 @@
     @foreach ($taskfilter as $task)
         <tr>
             <td>{{ $task->projects->firstWhere('project_id', session('selectedProject'))->Project_name }}</td>
-
             <td>{{ session('selectedProject') }}</td>
             <td>{{ $task->task_id }}</td>
             <td>{{ $task->task }}</td>
@@ -172,9 +174,7 @@
             </td>
             <td>{{ $task->users->firstWhere('id', session('selectedUser'))->name }}</td>
         </tr>
-    @endforeach
- 
-   
+    @endforeach  
     @elseif($userfilter)
         
             @foreach ($userfilter->tasks as $task)
@@ -196,8 +196,7 @@
                         </tr>
                     @endforeach
            
-    @endforeach
-    
+    @endforeach    
     @elseif($projectfilter)
         @foreach($projectfilter->tasks as $task)
             
@@ -237,8 +236,5 @@
     @if($taskfilter && count($taskfilter) == 0)
         <h1>No records found for the selected user and project.</h1>
     @endif
-
-
-
 </body>
 </html>

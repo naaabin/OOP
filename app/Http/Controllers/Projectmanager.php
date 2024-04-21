@@ -90,8 +90,6 @@ class Projectmanager extends Controller
 
     public function process_filter(Request $request)
     {
-
-        
         // Get the selected user and project from the request
         $selectedUser = $request->input('UserDropdownData');
         $selectedProject = $request->input('ProjectDropdownData');

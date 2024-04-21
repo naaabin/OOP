@@ -86,7 +86,6 @@
         <a href="/logout" class="btn btn-danger">Logout</a>
     </form>
 </div>
-
 @include('projectdisplay');
 </body>
 </html>

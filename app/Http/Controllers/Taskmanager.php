@@ -136,7 +136,7 @@ class Taskmanager extends Controller
     public function Displaytasks()
     {
         // Retrieve tasks
-        $tasks = tasks::with('users', 'files', 'projects')->get();
+        $tasks = tasks::with('users', 'files', 'projects')->paginate(2);
         $notaskerror = '';
         if($tasks->isEmpty())
         {

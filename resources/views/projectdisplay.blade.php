@@ -1,3 +1,6 @@
+@if(!session('user_id'))
+    <script>window.location.href = '/loginform';</script>
+@endif
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,9 +69,9 @@
 <body>
 
 <div class="container">
-    <h1>Projects and its details </h1>
-    <br>
+<h1>Projects and its details </h1>
 @foreach ($projects as $project)
+<br>
     <h2>Project : {{ $project->Project_name }}</h2>
     <h2>Description : {{$project-> Description}} </h2>
     <div class="task-details">
@@ -109,14 +112,13 @@
             @endforeach
         </p>
     </div>
-    <!-- edit and delete buttons -->
-               
+    <!-- edit and delete buttons -->               
 <a href="/edit-project?project_id={{ $project->project_id }}" class="btn btn-primary"><i class="fas fa-edit" style="color: yellow;"></i></a>
-                    <button onclick="deleteProject('{{ $project->project_id }}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-   <br>      
+<button onclick="deleteProject('{{ $project->project_id }}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+<br>      
 @endforeach
-
 </div>
+
 
 </body>
 </html>
