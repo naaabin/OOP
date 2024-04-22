@@ -16,10 +16,7 @@ class Projectmanager extends Controller
     {
         $projectname = $request->input('project');
         $description = $request->input('description');
-
         $projectadd = new projects();
-       
-
         $projectadd->project_name = $projectname;
         $projectadd->description = $description;
 
@@ -34,6 +31,61 @@ class Projectmanager extends Controller
         }
       
     }
+
+    public function editprojectpage(Request $request)
+    {
+            $id = $request->query('project_id');
+            $project = projects::find($id);
+            if($project==null)
+            {
+                abort(404, 'Invalid project id');
+                
+            }
+            else
+            {
+                 return view('editproject')->with('project',$project);
+            }
+    }
+
+    public function editproject(Request $request)
+    {   
+        $id = $request->input('new_ID');
+        $project = projects::find($id);
+        $project->Project_name = $request->input('new_project');
+        $project->Description = $request->input('new_description');
+        
+        if($project->save())
+        {
+            return redirect('/projectform')->with('message', 'The selected project has been updated successfully');
+        }
+        else
+        {
+            return redirect('/projectform')->with('error', 'project update failed');
+        }
+    }
+
+    public function deleteproject(Request $request)
+    {
+            $id = $request->query('project_id');
+            $project = projects::find($id);
+            if($project==null)
+            {
+                abort(404, 'Invalid project id');
+            }
+            else
+            {
+                $delete_status = projects::destroy($id); 
+                if($delete_status)
+                {
+                    return redirect('/projectform')->with('message', 'The selected project has been deleted successfully');
+                }
+                else
+                {
+                    return redirect('/projectform')->with('error', 'project deletion failed');
+                }
+            }
+    }
+
 
     public function logout(Request $request)
     {

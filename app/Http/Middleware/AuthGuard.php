@@ -18,7 +18,7 @@ class AuthGuard
     {
         if(session()->has('user'))
         {
-            echo session('user');
+            echo 'User - '.session('user');
             return $next($request);
         }
         else

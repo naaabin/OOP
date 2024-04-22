@@ -8,30 +8,71 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        
         body {
-            background-color: #f7f7f7;
-            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #e7d7d7;
+            margin: 0;
+            padding: 0;
         }
+
         .container {
-            max-width: 500px;
-            margin: 0 auto;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            max-width: 700px;
+            margin: 20px auto;
             padding: 20px;
             background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        h2 {
+         
+            color: black;
+            font-weight: bold;
+        }
+
+        form {
+            text-align: left;
+        }
+
         h1 {
-            margin-top: 20px;
-        }
-        .error {
-            color: red;
+            font-size: 35px;
             margin-bottom: 10px;
+            color: green;
+            font-weight: bold; /* This will make the text bold */
         }
+
+
+        input {
+            margin-bottom: 15px;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center">EDIT TASK</h2>
+        <h1 class="text-center">EDIT TASK</h1>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -41,7 +82,7 @@
                 </ul>
             </div>
         @endif
-        <form method="POST" action="/edittask">
+        <form method="POST" action="/edit-task">
             @csrf
             <h2>Task</h2>
             <input type="hidden" class="form-control" name="id" value="{{ $task->task_id}}">
