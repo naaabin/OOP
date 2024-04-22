@@ -54,7 +54,8 @@
     </style>
     <script src="https://kit.fontawesome.com/7b92c82a52.js" crossorigin="anonymous"></script>
     <script>
-    function deleteProject(projectId) {
+    function deleteProject(projectId) 
+    {
         var userConfirmation = confirm("Are you sure you want to delete this project?");
         if (userConfirmation) {
             window.location.href = '/delete-project?project_id=' + projectId;
@@ -68,6 +69,12 @@
 
 <div class="container">
 <h1>Projects and its details </h1>
+@if(isset($noprojecterror))
+ <div class="alert alert-danger" style="text-align: center;  font-size: 30px;">
+    {{$noprojecterror}}
+ </div>
+@endif
+
 @foreach ($projects as $project)
 <br>
     <h2>Project : {{ $project->Project_name }}</h2>
@@ -91,23 +98,17 @@
 
         <h3>Tasks:</h3>
         <p class="comma-separated-list">
-            @foreach ($alltasks as $task)
-                <span>{{ $task }}</span>@if ( ! $loop->last),@endif
-            @endforeach
+            {{ implode(', ', $alltasks) }}
         </p>
 
         <h3>Users:</h3>
         <p class="comma-separated-list">
-            @foreach ($allUsers as $user)
-                <span>{{ $user }}</span>@if ( ! $loop->last),@endif
-            @endforeach
+            {{ implode(', ', $allUsers) }}
         </p>
 
         <h3>Files:</h3>
         <p class="comma-separated-list">
-            @foreach ($allFiles as $file)
-                <span>{{ $file }}</span>@if ( ! $loop->last),@endif
-            @endforeach
+            {{ implode(', ', $allFiles) }}
         </p>
     </div>
     <!-- edit and delete buttons -->               

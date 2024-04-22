@@ -19,7 +19,6 @@ class Taskmanager extends Controller
         $projects = projects::all();
         $users = User::all();
 
-        // Now you can use $projects in your view or further processing
         return view('Todolist', compact('projects'), compact('users'));
     }
 
@@ -29,11 +28,12 @@ class Taskmanager extends Controller
       {
         DB::transaction(function () use ($request)
         {   
+            $data = $request->input();
             //tasks table
             $task = new tasks();
-            $task->task = $request->input('task');
-            $task->description = $request->input('description');
-            $task->priority = $request->input('priority');
+            $task->task = $data['task'];
+            $task->description = $data['description'];
+            $task->priority = $data['priority'];
             $task->save();
             $lastInsertedId = $task->task_id;   //last inserted task id
                 
@@ -82,8 +82,7 @@ class Taskmanager extends Controller
                     $project_selected = projects::where('project_name',$projectname)->first();
                     $project_tasks = new project_task();
                     $project_tasks->project_id = $project_selected->project_id;
-                    $project_tasks->task_id =   $lastInsertedId;
-                 
+                    $project_tasks->task_id =  $lastInsertedId;
                     $project_tasks->save();
                     $projectIDs[] = $project_tasks->project_id; 
                 }
@@ -95,7 +94,7 @@ class Taskmanager extends Controller
             
             //Insert into task_user table
             if($request->has('selectedUsers'))
-            {      $UserIDs = array();
+            {      $userIDs = array();
                 
                 foreach ($request->input('selectedUsers') as $user)
                 {
@@ -120,9 +119,7 @@ class Taskmanager extends Controller
                     $project_user->save();
                 }
             }
-            
-            
-               
+                   
         });
         return redirect('/todolist')->with('message', 'Task and its details added successfully'); 
       }
@@ -188,8 +185,8 @@ class Taskmanager extends Controller
             }
             else
             {
-                $delete_status = tasks::destroy($id); 
-                if($delete_status)
+                $delete_status = tasks::where('task_id', $id)->delete();
+                if($delete_status) 
                 {
                     return redirect('/taskdisplay')->with('message', 'The selected task has been deleted successfully');
                 }

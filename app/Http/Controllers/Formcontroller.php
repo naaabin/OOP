@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\projects;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class Formcontroller extends Controller
 {
@@ -69,6 +69,7 @@ class Formcontroller extends Controller
     {
         $request->session()->forget('selectedUser');
         $request->session()->forget('selectedProject');
+        
         $projects = projects::with(['tasks.users', 'tasks.files'])->get();
         return view('projectform', ['projects' => $projects]);
        

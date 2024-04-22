@@ -25,7 +25,7 @@ class PasswordChangeController extends Controller
             {
                 // Update the user's password
                 $user->update(['password' => Hash::make($request['password'])]);
-                return redirect('/loginform')->with('passwordresetstatus', 'Password has been successfully reset.');
+                return redirect('/logout');
             } 
             else 
             {

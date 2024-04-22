@@ -74,7 +74,7 @@
         <h1>Description</h1>
         <input type="text" name="new_description" value="{{ $project->Description }}">
         <button type="submit" name="update">Update</button>
-        <a href="projectform">Back</a>
+        <a href="projectform"><button class="btn btn-primary" name="back"> Back </button></a>
     </form>
 </div>
 </body>

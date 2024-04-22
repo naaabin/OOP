@@ -33,11 +33,11 @@ class Projectmanager extends Controller
     public function editprojectpage(Request $request)
     {
             $id = $request->query('project_id');
+ 
             $project = projects::find($id);
-            if($project==null)
+            if(is_null($project))
             {
-                abort(404, 'Invalid project id');
-                
+                abort(404, 'Invalid project id');    
             }
             else
             {
@@ -52,13 +52,19 @@ class Projectmanager extends Controller
         $project->Project_name = $request->input('new_project');
         $project->Description = $request->input('new_description');
         
-        if($project->save())
+        if($request->has('back'))
+        {
+            return redirect('/projectform');
+        }
+
+        elseif($project->save())
         {
             return redirect('/projectform')->with('message', 'The selected project has been updated successfully');
         }
+      
         else
         {
-            return redirect('/projectform')->with('error', 'project update failed');
+            return redirect('/projectform')->with('error', 'Project update failed');
         }
     }
 
@@ -89,7 +95,7 @@ class Projectmanager extends Controller
     {
         Auth::logout();
 
-        //You can also clear the session data if needed
+        //clear the session data 
          $request->session()->flush();
 
         return redirect('/loginform')->with('message', 'You have been logged out successfully.');
@@ -106,7 +112,9 @@ class Projectmanager extends Controller
         {
             $noprojecterror = 'No tasks to display, please add tasks';
         }
-        return view('projectdisplay', ['projects' => $projects, 'noprojecterror' => $noprojecterror]);
+
+        return view('projectdisplay', compact('projects','noprojecterror'));
+        
     }
 
     public function userdashboard()
@@ -147,7 +155,6 @@ class Projectmanager extends Controller
         // Store the selected user and project into the session
         $request->session()->put('selectedUser', $selectedUser);
         $request->session()->put('selectedProject', $selectedProject);
-
 
         // Retrieve all users and projects from the database
         $users = User::all();

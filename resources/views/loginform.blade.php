@@ -48,6 +48,7 @@
 
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh; width: 80%;">
     <div class="border rounded p-5" style="background-color: #D3D3D3;">
+ 
     @if(session('message'))
 <div class="alert alert-danger" style="text-align: center; font-size: 30px;">
         {{ session('message') }}

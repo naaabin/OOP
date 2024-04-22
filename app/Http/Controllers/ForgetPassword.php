@@ -5,7 +5,7 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Passwordreset;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
 
@@ -102,7 +102,7 @@ class ForgetPassword extends Controller
 
         if($user) 
         {
-            $delete_token = Passwordreset::where('email', $email)->delete();
+            Passwordreset::where('email', $email)->delete();
             return redirect('/loginform')->with('passwordresetstatus', 'Password has been successfully reset.');    
         } 
         else 
