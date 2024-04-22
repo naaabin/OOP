@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Str;
-use Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Carbon;
 use App\Models\Passwordreset;
-use Illuminate\Support\Facades\Password;
 use Hash;
 
 use Illuminate\Http\Request;

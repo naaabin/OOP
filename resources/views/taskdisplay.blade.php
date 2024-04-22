@@ -57,7 +57,7 @@
         }
 
         .btn-primary {
-            background-color: #007bff;
+            background-color: #0174f0;
         }
 
         .thumbnail-image {
@@ -92,17 +92,16 @@
             window.open(filePath,'_blank');
         }
 }
-
-    </script>
+  </script>
 </head>
 <body>
 
 @if(session('message'))
-<div style="text-align: center; font-size: 20px; color: green;">{{ session('message') }}</div>
+<div style="text-align: center; font-size: 40px; color: green; font-weight: bold;">{{ session('message') }}</div>
 @endif
 
 @if(session('error'))
-<div style="text-align: center; font-size: 20px; color: red;">{{ session('error') }}</div>
+<div style="text-align: center; font-size: 40px; color: red; font-weight: bold;">{{ session('error') }}</div>
 @endif
 
 <div>

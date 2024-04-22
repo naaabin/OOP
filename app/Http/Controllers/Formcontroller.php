@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\projects;
-
 use Illuminate\Http\Request;
-
 use Auth;
 
 class Formcontroller extends Controller

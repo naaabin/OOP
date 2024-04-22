@@ -6,8 +6,7 @@ use App\Http\Controllers\Projectmanager;
 use App\Http\Controllers\ForgetPassword;
 use App\Http\Controllers\Passwordchangecontroller;
 use App\Http\Controllers\Taskmanager;
-use App\Http\Controllers\User;
-use App\Http\Controllers\projects;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\projects;
 use App\Models\User;
-use App\Models\project_task;
 use App\Models\tasks;
-use App\Models\files;
 use Illuminate\Support\Facades\Auth;
 
 class Projectmanager extends Controller
@@ -197,8 +195,5 @@ class Projectmanager extends Controller
             'taskfilter' => $taskfilter
         ]);
     }
-
-    
-
     
 }
