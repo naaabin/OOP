@@ -1,6 +1,4 @@
-@if(!session('user_id'))
-    <script>window.location.href = '/loginform';</script>
-@endif
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -172,7 +170,10 @@
     <button onclick="deleteTask('{{ $task->task_id }}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 </div>
 @endforeach
+<div class="row">
 {{ $tasks->links() }}
+</div>
+
 
 
 </body>

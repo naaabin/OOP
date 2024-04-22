@@ -1,6 +1,4 @@
-@if(!session('user_id'))
-    <script>window.location.href = '/loginform';</script>
-@endif
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,7 +116,5 @@
 <br>      
 @endforeach
 </div>
-
-
 </body>
 </html>

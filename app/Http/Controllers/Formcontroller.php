@@ -56,6 +56,7 @@ class Formcontroller extends Controller
 
             // Store the user ID in the session
             session()->put('user_id', $user->id);
+            session()->put('user', $user->name);
 
             return redirect('/projectform');
       } 
