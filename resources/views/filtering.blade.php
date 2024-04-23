@@ -123,6 +123,7 @@
  <h1>All Tasks and Their Details</h1>
  <table>
     <tr>
+        <th>SN</th>
         <th>Project</th>
         <th>Project_ID</th>
         <th>Task ID</th>
@@ -131,11 +132,18 @@
         <th>Task priority</th>
         <th>Files</th>
         <th>Assigned User</th>
+        
     </tr>
+ 
+    @php
+        $count=1;
+    @endphp
+    
     @if($tasks)
     @foreach($tasks as $task)
         @foreach($task->projects as $project)
             <tr>
+                <td>{{$count++}}</td>
                 <td>{{ $project->Project_name }}</td>
                 <td>{{ $project->project_id }}</td>
                 <td>{{ $task->task_id }}</td>
@@ -159,6 +167,7 @@
     @elseif($taskfilter)
     @foreach ($taskfilter as $task)
         <tr>
+            <td>{{$count++}}</td>
             <td>{{ $task->projects->firstWhere('project_id', session('selectedProject'))->Project_name }}</td>
             <td>{{ session('selectedProject') }}</td>
             <td>{{ $task->task_id }}</td>
@@ -179,6 +188,7 @@
                
                     @foreach($task->projects as $project)
                         <tr>
+                            <td>{{$count++}}</td>
                             <td>{{ $project->Project_name }}</td>
                             <td>{{ $project->project_id }}</td>
                             <td>{{ $task->task_id }}</td>
@@ -199,6 +209,7 @@
         @foreach($projectfilter->tasks as $task)
             
                 <tr>
+                    <td>{{$count++}}</td>
                     <td>{{ $projectfilter->Project_name }}</td>
                     <td>{{ $projectfilter->project_id }}</td>
                     <td>{{ $task->task_id }}</td>
