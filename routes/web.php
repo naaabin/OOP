@@ -58,7 +58,7 @@ Route::middleware('AuthGuard')-> group(  function()  {
     
     
     Route::get('/delete-task' ,[TaskManagerController::class, 'deletetask']);
-    Route::get('/projectdisplay', [ProjectManagerController::class , 'Displayprojects']);
+    Route::get('/projectdisplay', [ProjectManagerController::class , 'DisplayProjects']);
     
     Route::get('/users', [ProjectManagerController::class , 'userdashboard']);
     Route::get('/filtering', [ProjectManagerController::class , 'filterpage']);

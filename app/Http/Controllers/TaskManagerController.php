@@ -75,7 +75,7 @@ class TaskManagerController extends Controller
 
             //Insert intp project_task table
             if($request->has('selectedProjects'))
-            {      $projectIDs = array();
+            {     
                 
                 foreach ($request->input('selectedProjects') as $projectname)
                 {
@@ -84,7 +84,7 @@ class TaskManagerController extends Controller
                     $project_tasks->project_id = $project_selected->project_id;
                     $project_tasks->task_id =  $lastInsertedId;
                     $project_tasks->save();
-                    $projectIDs[] = $project_tasks->project_id; 
+                    
                 }
             }
             else
@@ -94,31 +94,19 @@ class TaskManagerController extends Controller
             
             //Insert into task_user table
             if($request->has('selectedUsers'))
-            {      $userIDs = array();
+            {     
                 
                 foreach ($request->input('selectedUsers') as $user)
                 {
                     $user_selected = User::where('name',$user)->first();
-                   
                     $task_users = new TaskUser();
                     $task_users->id = $user_selected->id;
                     $task_users->task_id =   $lastInsertedId;
-                   
                     $task_users->save();
-                    $userIDs[] = $user_selected->id;
+                  
                 }
             }
 
-            foreach ($projectIDs as $projectID)
-            {
-                foreach ($userIDs as $userID)
-                {
-                    $project_user = new ProjectUser();
-                    $project_user->project_id = $projectID;
-                    $project_user->id = $userID;
-                    $project_user->save();
-                }
-            }
                    
         });
         return redirect('/todolist')->with('message', 'Task and its details added successfully'); 

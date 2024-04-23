@@ -104,13 +104,12 @@ class ProjectManagerController extends Controller
     }
 
 
-    public function DisplayProject()
+    public function DisplayProjects()
     {
         
-        $Project = Project::with(['Task.users', 'Task.files'])->get();
-
+        $projects = Project::all();
         $noprojecterror = '';
-        if($Project->isEmpty())
+        if($projects->isEmpty())
         {
             $noprojecterror = 'No Project to display, please add project.';
         }
