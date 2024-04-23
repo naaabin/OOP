@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class task_user extends Pivot
+class ProjectUser extends Pivot
 {
     use HasFactory;
-    protected $table = 'task_user';
-    protected $primaryKey = 'task_user_id';
-    protected $fillable = ['task_id','id'];
+    protected $table = 'project_user';
+    protected $primaryKey = 'project_user_id';
+    protected $fillable = ['project_id','id'];
     public $timestamps = false;
-     
-   
 }

@@ -1,22 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\projects;
+use App\Models\Project;
 use App\Models\User;
-use App\Models\tasks;
-use App\Models\files;
-use App\Models\task_files;
-use App\Models\project_task;
-use App\Models\project_user;
-use App\Models\task_user;
+use App\Models\Task;
+use App\Models\File;
+use App\Models\TaskFile;
+use App\Models\ProjectTask;
+use App\Models\ProjectUser;
+use App\Models\TaskUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class Taskmanager extends Controller
+class TaskManagerController extends Controller
 {
     public function get_projects_users()
     {
-        $projects = projects::all();
+        $projects = Project::all();
         $users = User::all();
 
         return view('Todolist', compact('projects'), compact('users'));
@@ -30,7 +30,7 @@ class Taskmanager extends Controller
         {   
             $data = $request->input();
             //tasks table
-            $task = new tasks();
+            $task = new Task();
             $task->task = $data['task'];
             $task->description = $data['description'];
             $task->priority = $data['priority'];
@@ -55,7 +55,7 @@ class Taskmanager extends Controller
                     $file->move(public_path('uploads'), $filename);
     
                     // Insert the file info into the database
-                    $fileRecord = new files();
+                    $fileRecord = new File();
                     $fileRecord->file_name = $filename;
                     $fileRecord->file_loc = 'uploads/' . $filename;
                     $fileRecord->task_id =  $lastInsertedId;
@@ -66,7 +66,7 @@ class Taskmanager extends Controller
                 // Insert into task_file data into the database
                 foreach ($fileIDs as $fileID) 
                 {
-                    $task_file = new task_files();
+                    $task_file = new TaskFile();
                     $task_file->task_id =   $lastInsertedId;
                     $task_file->file_id = $fileID;
                     $task_file->save();
@@ -79,8 +79,8 @@ class Taskmanager extends Controller
                 
                 foreach ($request->input('selectedProjects') as $projectname)
                 {
-                    $project_selected = projects::where('project_name',$projectname)->first();
-                    $project_tasks = new project_task();
+                    $project_selected = Project::where('project_name',$projectname)->first();
+                    $project_tasks = new ProjectTask();
                     $project_tasks->project_id = $project_selected->project_id;
                     $project_tasks->task_id =  $lastInsertedId;
                     $project_tasks->save();
@@ -100,7 +100,7 @@ class Taskmanager extends Controller
                 {
                     $user_selected = User::where('name',$user)->first();
                    
-                    $task_users = new task_user();
+                    $task_users = new TaskUser();
                     $task_users->id = $user_selected->id;
                     $task_users->task_id =   $lastInsertedId;
                    
@@ -113,7 +113,7 @@ class Taskmanager extends Controller
             {
                 foreach ($userIDs as $userID)
                 {
-                    $project_user = new project_user();
+                    $project_user = new ProjectUser();
                     $project_user->project_id = $projectID;
                     $project_user->id = $userID;
                     $project_user->save();
@@ -133,7 +133,7 @@ class Taskmanager extends Controller
     public function Displaytasks()
     {
         // Retrieve tasks
-        $tasks = tasks::with('users', 'files', 'projects')->get();
+        $tasks = Task::with('users', 'files', 'projects')->get();
         $notaskerror = '';
         if($tasks->isEmpty())
         {
@@ -142,7 +142,7 @@ class Taskmanager extends Controller
 
         $totalRows = DB::table('tasks')->count(); // Get the total number of rows
         $paginationController = new PaginationController();
-        $result = $paginationController->displayPagination('tasks', $totalRows); // Get the pagination links and data
+        $result = $paginationController->displayPagination('Task', $totalRows); // Get the pagination links and data
 
         // Return the view with the tasks, error message, pagination links, and data
         return view('taskdisplay', ['tasks' => $tasks, 'notaskerror' => $notaskerror, 'pagination' => $result['pagination'], 'data' => $result['data']]);
@@ -153,7 +153,7 @@ class Taskmanager extends Controller
     public function edittaskpage(Request $request)
     {
             $id = $request->query('task_id');
-            $task = tasks::find($id);
+            $task = Task::find($id);
             if($task==null)
             {
                 abort(404, 'Invalid task id');
@@ -168,7 +168,7 @@ class Taskmanager extends Controller
     public function edittask(Request $request)
     {   
         $id = $request->input('id');
-        $task = tasks::find($id);
+        $task = Task::find($id);
         $task->task = $request->input('new_task');
         $task->description = $request->input('new_description');
         $task->priority = $request->input('new_priority');
@@ -186,14 +186,14 @@ class Taskmanager extends Controller
     public function deletetask(Request $request)
     {
             $id = $request->query('task_id');
-            $task = tasks::find($id);
+            $task = Task::find($id);
             if($task==null)
             {
                 abort(404, 'Invalid task id');
             }
             else
             {
-                $delete_status = tasks::where('task_id', $id)->delete();
+                $delete_status = Task::where('task_id', $id)->delete();
                 if($delete_status) 
                 {
                     return redirect('/taskdisplay')->with('message', 'The selected task has been deleted successfully');

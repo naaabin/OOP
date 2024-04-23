@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use App\Models\Passwordreset;
+use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
 
-class ForgetPassword extends Controller
+class ForgetPasswordController extends Controller
 {
    public function forgetpassword()
    {
@@ -30,7 +30,7 @@ class ForgetPassword extends Controller
         $tokenhash = bcrypt($token);
 
         // to either update the existing reset entry or create a new one
-        Passwordreset::updateOrCreate(
+        PasswordReset::updateOrCreate(
             ['email' => $emailInput], // Conditions to find the record
             ['token' => $tokenhash, 'created_at' => now()] // Fields to update or create
         );
@@ -63,11 +63,11 @@ class ForgetPassword extends Controller
         // Check if the user exists
         if (!$user) 
         {
-            return redirect()->to(url('/passwordresetstatus'))->with('message', 'No user found with that email address.');
+            return redirect()->to(url('/PasswordResetstatus'))->with('message', 'No user found with that email address.');
         }
 
         // Retrieve the token record from the password_resets table
-        $tokenRecord = Passwordreset::where('email', $email)->first();
+        $tokenRecord = PasswordReset::where('email', $email)->first();
 
         // Check if the token record exists and if the token matches after hashing
         if ($tokenRecord && Hash::check($token, $tokenRecord->token)) 
@@ -78,12 +78,12 @@ class ForgetPassword extends Controller
         else 
         {
             // Token is invalid or does not exist
-            return redirect()->to(url('/passwordresetstatus'))->with('message', 'This password reset token is invalid.');
+            return redirect()->to(url('/PasswordResetstatus'))->with('message', 'This password reset token is invalid.');
         }
     }
 
 
-   public function passwordresetstatuspage()
+   public function PasswordResetstatuspage()
    {
           return view('email.displayresetpasswordstatus');
    }
@@ -102,8 +102,8 @@ class ForgetPassword extends Controller
 
         if($user) 
         {
-            Passwordreset::where('email', $email)->delete();
-            return redirect('/loginform')->with('passwordresetstatus', 'Password has been successfully reset.');    
+            PasswordReset::where('email', $email)->delete();
+            return redirect('/loginform')->with('PasswordResetstatus', 'Password has been successfully reset.');    
         } 
         else 
         {

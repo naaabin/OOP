@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\projects;
+use App\Models\Project;
 use App\Models\User;
-use App\Models\tasks;
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
-class Projectmanager extends Controller
+class ProjectManagerController extends Controller
 {    
     public function add_project(Request $request)
     {
         $projectname = $request->input('project');
         $description = $request->input('description');
-        $projectadd = new projects();
+        $projectadd = new Project();
         $projectadd->project_name = $projectname;
         $projectadd->description = $description;
 
@@ -36,7 +36,7 @@ class Projectmanager extends Controller
     {
             $id = $request->query('project_id');
  
-            $project = projects::find($id);
+            $project = Project::find($id);
             if(is_null($project))
             {
                 abort(404, 'Invalid project id');    
@@ -50,7 +50,7 @@ class Projectmanager extends Controller
     public function editproject(Request $request)
     {   
         $id = $request->input('new_ID');
-        $project = projects::find($id);
+        $project = Project::find($id);
         $project->Project_name = $request->input('new_project');
         $project->Description = $request->input('new_description');
         
@@ -73,14 +73,14 @@ class Projectmanager extends Controller
     public function deleteproject(Request $request)
     {
             $id = $request->query('project_id');
-            $project = projects::find($id);
+            $project = Project::find($id);
             if($project==null)
             {
                 abort(404, 'Invalid project id');
             }
             else
             {
-                $delete_status = projects::destroy($id); 
+                $delete_status = Project::destroy($id); 
                 if($delete_status)
                 {
                     return redirect('/projectform')->with('message', 'The selected project has been deleted successfully');
@@ -104,20 +104,20 @@ class Projectmanager extends Controller
     }
 
 
-    public function Displayprojects()
+    public function DisplayProject()
     {
         
-        $projects = projects::with(['tasks.users', 'tasks.files'])->get();
+        $Project = Project::with(['Task.users', 'Task.files'])->get();
 
         $noprojecterror = '';
-        if($projects->isEmpty())
+        if($Project->isEmpty())
         {
-            $noprojecterror = 'No projects to display, please add project.';
+            $noprojecterror = 'No Project to display, please add project.';
         }
 
         $totalRows = DB::table('projects')->count(); // Get the total number of rows
         $paginationController = new PaginationController();
-        $result = $paginationController->displayPagination('projects', $totalRows); 
+        $result = $paginationController->displayPagination('Project', $totalRows); 
 
         return view('projectdisplay',['noprojecterror'=>$noprojecterror,'pagination' => $result['pagination'], 'data' => $result['data']]);
         
@@ -141,12 +141,12 @@ class Projectmanager extends Controller
         $projects = session('projects');
         $taskfilter = session('taskfilter');
 
-        // If there is no flashed data, retrieve all users, projects, and tasks from the database
+        // If there is no flashed data, retrieve all users, Project, and Task from the database
         if (!$tasks && !$userfilter && !$projectfilter && !$users && !$projects && !$taskfilter) 
         {
             $users = User::all();
-            $projects = projects::all();
-            $tasks = tasks::with('users', 'projects')->get();
+            $projects = Project::all();
+            $tasks = Task::with('users', 'projects')->get();
         }
 
         return view('filtering', ['users' => $users, 'projects' => $projects, 'tasks' => $tasks , 'userfilter'=> $userfilter, 'projectfilter'=> $projectfilter, 'taskfilter' => $taskfilter]);
@@ -162,9 +162,9 @@ class Projectmanager extends Controller
         $request->session()->put('selectedUser', $selectedUser);
         $request->session()->put('selectedProject', $selectedProject);
 
-        // Retrieve all users and projects from the database
+        // Retrieve all users and Project from the database
         $users = User::all();
-        $projects = projects::all();
+        $projects = Project::all();
 
         // Initialize the variables to hold the results
         $userfilter = null;
@@ -172,30 +172,30 @@ class Projectmanager extends Controller
         $taskfilter = null;
         $tasks = null;
 
-        // If a user is selected and no project is selected, fetch the user with its associated tasks, projects, and files
+        // If a user is selected and no project is selected, fetch the user with its associated Task, Project, and files
         if (!empty($selectedUser) && empty($selectedProject)) 
         {
             $userfilter = User::with(['tasks.projects', 'tasks.files', 'tasks.users'])->find($selectedUser);
         }
-        // If a project is selected and no user is selected, fetch the project with its associated tasks, users, and files
+        // If a project is selected and no user is selected, fetch the project with its associated Task, users, and files
         elseif (empty($selectedUser) && !empty($selectedProject)) 
         {
-            $projectfilter = projects::with('tasks.projects', 'tasks.files', 'tasks.users')->find($selectedProject);
+            $projectfilter = Project::with('tasks.projects', 'tasks.files', 'tasks.users')->find($selectedProject);
         }
-        // If both a user and a project are selected, filter tasks based on the selected user and project
+        // If both a user and a project are selected, filter Task based on the selected user and project
         elseif (!empty($selectedUser) && !empty($selectedProject)) 
         {
-            $taskfilter = tasks::whereHas('users', function ($query) use ($selectedUser) {
+            $taskfilter = Task::whereHas('users', function ($query) use ($selectedUser) {
                 $query->where('users.id', $selectedUser);
             })->whereHas('projects', function ($query) use ($selectedProject) {
                 $query->where('projects.project_id', $selectedProject);
             })->with(['users', 'projects', 'files'])->get();
         }
 
-        // If neither a user nor a project is selected, fetch all tasks with their associated users, projects, and files
+        // If neither a user nor a project is selected, fetch all Task with their associated users, Project, and files
         else 
         {
-            $tasks = tasks::with(['users', 'projects', 'files'])->get();
+            $tasks = Task::with(['users', 'projects', 'files'])->get();
         }
 
         // Redirect to the filtering page with the results

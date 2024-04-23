@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class project_task extends Pivot
+class ProjectTask extends Pivot
 {
     use HasFactory;
     protected $table = 'project_task';

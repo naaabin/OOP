@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tasks extends Model
+class Task extends Model
 {
     use HasFactory;
     protected $table = 'tasks';
@@ -20,11 +20,11 @@ class tasks extends Model
 
     public function files()
     {
-        return $this->hasMany(files::class, 'task_id', 'task_id');
+        return $this->hasMany(File::class, 'task_id', 'task_id');
     }
 
     public function projects()
     {
-        return $this->belongsToMany(projects::class, 'project_task', 'task_id' , 'project_id');                
+        return $this->belongsToMany(Project::class, 'project_task', 'task_id' , 'project_id');                
     }
 }
