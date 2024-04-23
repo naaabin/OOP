@@ -41,10 +41,9 @@ class FormController extends Controller
           'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/'],
       ]);
 
-      // Map the form input names to the database column names
       $credentials = [
           'email' => $request->input('email'),
-          'password' => $request->input('password'), // 'password' is used here because Laravel will hash it automatically
+          'password' => $request->input('password'), 
       ];
 
       if (Auth::attempt($credentials)) 
