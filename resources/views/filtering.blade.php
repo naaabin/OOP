@@ -234,10 +234,6 @@
         <h1>No tasks associated with this user.</h1>
     @endif
 
-    @if($userfilter && !$userfilter->tasks->isEmpty() && $userfilter->tasks->first()->projects->isEmpty())
-        <h1>No projects associated with this user's tasks.</h1>
-    @endif
-
     @if($projectfilter && $projectfilter->tasks->isEmpty())
         <h1>No tasks assigned to this project.</h1>
     @endif
