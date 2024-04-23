@@ -10,16 +10,18 @@
             font-family: Arial, sans-serif;
             background-color: #f7f7f7;
             padding: 10px;
+            margin-bottom: 10px;
         }
         
         .task-container {
             background-color: #fff;
-            border: 1px solid #ccc;
+            border: 0px solid #ccc;
             border-radius: 5px;
-            padding: 10px;
+            padding: 5px;
             margin-bottom: 15px;
             max-width: 100%;
             font-size: 14px;
+           
         }
         
         .task-info {
@@ -42,7 +44,7 @@
         }
 
         .btn {
-            margin-right: 10px;
+            margin-right: 10px; 
             cursor: pointer;
             background-color: #007bff;
             color: #fff;
@@ -57,6 +59,7 @@
         }
 
         .btn-primary {
+            margin-top: 10px;
             background-color: #0174f0;
         }
 
@@ -104,8 +107,8 @@
 <div style="text-align: center; font-size: 40px; color: red; font-weight: bold;">{{ session('error') }}</div>
 @endif
 
-<div>
-    <h1>Tasks and their associated details</h1>
+<h1>Tasks and their associated details</h1>
+<div class="row" margin-top: 10px;">
     <a href="/todolist" class="btn">Add new task to the project</a>
     <a href="/users" class="btn">Users</a>
     <a href="/logout" class="btn">Logout</a>
@@ -173,8 +176,5 @@
     <br>
     {!! $pagination !!}
 </div>
-
-
-
 </body>
 </html>

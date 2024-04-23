@@ -25,7 +25,7 @@ class FormController extends Controller
         $user->password = bcrypt($request['password']);
         $user->gender = $request['gender'];
   
-
+        
         if($user->save())
         {
             return redirect('/signupform')->with('message', 'User successfully signed up!');
