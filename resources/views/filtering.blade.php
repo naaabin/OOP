@@ -24,7 +24,8 @@
         h2 
         {
             text-align: center;
-            color: red;
+            color: rgb(226, 27, 87);
+            font-weight: bold;
         }
 
         form 
@@ -182,10 +183,8 @@
             <td>{{ $task->users->firstWhere('id', session('selectedUser'))->name }}</td>
         </tr>
     @endforeach  
-    @elseif($userfilter)
-        
+    @elseif($userfilter)        
             @foreach ($userfilter->tasks as $task)
-               
                     @foreach($task->projects as $project)
                         <tr>
                             <td>{{$count++}}</td>
@@ -207,7 +206,6 @@
     @endforeach    
     @elseif($projectfilter)
         @foreach($projectfilter->tasks as $task)
-            
                 <tr>
                     <td>{{$count++}}</td>
                     <td>{{ $projectfilter->Project_name }}</td>
@@ -225,7 +223,6 @@
                         {{$task->users->pluck('name')->implode(', ')}}
                     </td>
                 </tr>
-        
         @endforeach
     @endif
 </table>

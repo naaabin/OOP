@@ -26,7 +26,6 @@ Route::get('/signupform', function () {
     return view('signupform');
 });
 
-
 Route::post('/loginform', [FormController::class ,'login_form'])->name('loginform');
 Route::post('/signupform', [FormController::class ,'signup_form'])->name('signupform');
 
@@ -39,9 +38,10 @@ Route::get('/passwordresetstatus', [ForgetPasswordController::class, 'passwordre
 Route::get('/resetpassword/{token}', [ForgetPasswordController::class, 'validateResetPasswordRequest']);
 Route::post('/resetpassword', [ForgetPasswordController::class, 'changepassword'])->name('change_password');
 
-Route::middleware('AuthGuard')-> group(  function()  {
+Route::middleware('AuthGuard')-> group(  function()  
+{
     
-    Route::get('/projectform' , [FormController::class ,'project_form'])->name('projectform')->middleware('AuthGuard');
+    Route::get('/projectform' , [FormController::class ,'project_form'])->name('projectform');
 
     Route::get('/changepassword', function () {
         return view('changepassword');
