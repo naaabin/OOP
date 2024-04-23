@@ -5,11 +5,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PaginationController extends Controller
 {
-    public function displayPagination($modelName, $totalRows, $dataPerPage = 2)
+    public function displayPagination($modelclass, $totalRows, $dataPerPage = 2)
     {
         try {
             // Resolve the model instance
-            $model = app()->make("App\\Models\\{$modelName}");
+            $model = app()->make("App\\Models\\{$modelclass}"); //this line of code is creating an instance of a model class
 
             $totalPages = ceil($totalRows / $dataPerPage);
             $page = request('page', 1); // Get the 'page' query parameter, default to 1 if not present
@@ -57,7 +57,7 @@ class PaginationController extends Controller
         catch (ModelNotFoundException $e) 
         {
             // Handle the error
-            echo "The model {$modelName} does not exist";
+            echo "The model {$modelclass} does not exist";
         }
     }
 }
