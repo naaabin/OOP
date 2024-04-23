@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\projects;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Formcontroller extends Controller
 {
@@ -70,8 +70,10 @@ class Formcontroller extends Controller
         $request->session()->forget('selectedUser');
         $request->session()->forget('selectedProject');
         
-        $projects = projects::with(['tasks.users', 'tasks.files'])->get();
-        return view('projectform', ['projects' => $projects]);
+        $totalRows = DB::table('projects')->count(); // Get the total number of rows
+        $paginationController = new PaginationController();
+        $result = $paginationController->displayPagination('projects', $totalRows); 
+        return view('projectform',['pagination' => $result['pagination'], 'data' => $result['data']]);
        
     }
     

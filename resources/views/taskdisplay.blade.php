@@ -115,7 +115,7 @@
 <div style="text-align: center; font-size: 20px; color: red;">{{ $notaskerror }}</div>
 @endif
 
-@foreach ($tasks as $task)
+@foreach ($data as $task)
 <div class="task-container">
     <h2>Task ID - {{ $task->task_id }}</h2>
     <h2>{{ $task->task }}</h2>
@@ -169,8 +169,9 @@
     <button onclick="deleteTask('{{ $task->task_id }}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 </div>
 @endforeach
-<div class="row">
-{{ $tasks->links() }}
+<div style="text-align: center">
+    <br>
+    {!! $pagination !!}
 </div>
 
 

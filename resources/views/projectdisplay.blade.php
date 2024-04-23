@@ -70,12 +70,12 @@
 <div class="container">
 <h1>Projects and its details </h1>
 @if(isset($noprojecterror))
- <div class="alert alert-danger" style="text-align: center;  font-size: 30px;">
+ <div  style="text-align: center;  font-size: 30px;">
     {{$noprojecterror}}
  </div>
-@endif
+@endif 
 
-@foreach ($projects as $project)
+@foreach ($data as $project)
 <br>
     <h2>Project : {{ $project->Project_name }}</h2>
     <h2>Description : {{$project-> Description}} </h2>
@@ -116,6 +116,11 @@
 <button onclick="deleteProject('{{ $project->project_id }}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 <br>      
 @endforeach
+<div style="text-align: center">
+    <br>
+    {!! $pagination !!}
+</div>
+
 </div>
 </body>
 </html>

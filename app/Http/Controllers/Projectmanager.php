@@ -7,6 +7,8 @@ use App\Models\projects;
 use App\Models\User;
 use App\Models\tasks;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class Projectmanager extends Controller
 {    
@@ -104,16 +106,20 @@ class Projectmanager extends Controller
 
     public function Displayprojects()
     {
-        // Retrieve tasks
+        
         $projects = projects::with(['tasks.users', 'tasks.files'])->get();
 
         $noprojecterror = '';
         if($projects->isEmpty())
         {
-            $noprojecterror = 'No tasks to display, please add tasks';
+            $noprojecterror = 'No projects to display, please add project.';
         }
 
-        return view('projectdisplay', compact('projects','noprojecterror'));
+        $totalRows = DB::table('projects')->count(); // Get the total number of rows
+        $paginationController = new PaginationController();
+        $result = $paginationController->displayPagination('projects', $totalRows); 
+
+        return view('projectdisplay',['noprojecterror'=>$noprojecterror,'pagination' => $result['pagination'], 'data' => $result['data']]);
         
     }
 

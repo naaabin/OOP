@@ -92,6 +92,6 @@
         <a href="/logout" class="btn btn-danger">Logout</a>
     </form>
 </div>
-@include('projectdisplay');
+@include('projectdisplay'); 
 </body>
 </html>
