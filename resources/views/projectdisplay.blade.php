@@ -75,7 +75,7 @@
  </div>
 @endif 
 
-@foreach ($data as $project)
+@foreach ($projects as $project)
 <br>
     <h2>Project : {{ $project->Project_name }}</h2>
     <h2>Description : {{$project-> Description}} </h2>
@@ -116,11 +116,10 @@
 <button onclick="deleteProject('{{ $project->project_id }}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 <br>      
 @endforeach
-<div style="text-align: center">
-    <br>
-    {!! $pagination !!}
-</div>
-
-</div>
+<br>
+<div class="row" style="text-align: center; margin-left: 30%;">
+    {{ $projects->links() }}
+  </div>
 </body>
+
 </html>

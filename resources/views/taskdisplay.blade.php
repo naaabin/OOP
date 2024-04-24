@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,14 +63,12 @@
             margin-top: 10px;
             background-color: #0174f0;
         }
-
         .thumbnail-image {
               width: 15px;
                height: 15px;
                         }
-
+       
     </style>
-    <script src="https://kit.fontawesome.com/7b92c82a52.js" crossorigin="anonymous"></script>
     <script>
         function deleteTask(taskId) {
             var userConfirmation = confirm("Are you sure you want to delete this task?");
@@ -96,9 +95,11 @@
         }
 }
   </script>
+      <script src="https://kit.fontawesome.com/7b92c82a52.js" crossorigin="anonymous"></script>
+      
 </head>
 <body>
-
+    
 @if(session('message'))
 <div style="text-align: center; font-size: 40px; color: green; font-weight: bold;">{{ session('message') }}</div>
 @endif
@@ -118,7 +119,7 @@
 <div style="text-align: center; font-size: 20px; color: red;">{{ $notaskerror }}</div>
 @endif
 
-@foreach ($data as $task)
+@foreach ($tasks as $task)
 <div class="task-container">
     <h2>Task ID - {{ $task->task_id }}</h2>
     <h2>{{ $task->task }}</h2>
@@ -172,9 +173,11 @@
     <button onclick="deleteTask('{{ $task->task_id }}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 </div>
 @endforeach
-<div style="text-align: center">
+
     <br>
-    {!! $pagination !!}
-</div>
+    
 </body>
+<div class="row" style="text-align: center;">
+    {{ $tasks->links() }}
+</div>
 </html>

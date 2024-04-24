@@ -107,18 +107,18 @@ class ProjectManagerController extends Controller
     public function DisplayProjects()
     {
         
-        $projects = Project::all();
+        $projects = Project::paginate(3);
         $noprojecterror = '';
         if($projects->isEmpty())
         {
             $noprojecterror = 'No Project to display, please add project.';
         }
 
-        $totalRows = DB::table('projects')->count(); // Get the total number of rows
-        $paginationController = new PaginationController();
-        $result = $paginationController->displayPagination('Project', $totalRows); 
+       // $totalRows = DB::table('projects')->count(); // Get the total number of rows
+        //$paginationController = new PaginationController();
+       // $result = $paginationController->displayPagination('Project', $totalRows); 
 
-        return view('projectdisplay',['noprojecterror'=>$noprojecterror,'pagination' => $result['pagination'], 'data' => $result['data']]);
+        return view('projectdisplay',['noprojecterror'=>$noprojecterror, 'projects' => $projects]);
         
     }
 

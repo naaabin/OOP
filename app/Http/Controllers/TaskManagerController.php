@@ -121,19 +121,19 @@ class TaskManagerController extends Controller
     public function Displaytasks()
     {
         // Retrieve tasks
-        $tasks = Task::with('users', 'files', 'projects')->get();
+        $tasks = Task::with('users', 'files', 'projects')->paginate(3);
         $notaskerror = '';
         if($tasks->isEmpty())
         {
             $notaskerror = 'No tasks to display, please add tasks';
         }
 
-        $totalRows = DB::table('tasks')->count(); // Get the total number of rows
-        $paginationController = new PaginationController();
-        $result = $paginationController->displayPagination('Task', $totalRows); // Get the pagination links and data
+        //$totalRows = DB::table('tasks')->count(); // Get the total number of rows
+        //$paginationController = new PaginationController();
+        //$result = $paginationController->displayPagination('Task', $totalRows); // Get the pagination links and data
 
         // Return the view with the tasks, error message, pagination links, and data
-        return view('taskdisplay', ['tasks' => $tasks, 'notaskerror' => $notaskerror, 'pagination' => $result['pagination'], 'data' => $result['data']]);
+        return view('taskdisplay', ['tasks' => $tasks, 'notaskerror' => $notaskerror]);
     }
 
     

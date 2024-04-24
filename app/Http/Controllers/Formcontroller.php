@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Models\Project;
 
 class FormController extends Controller
 {
@@ -69,12 +69,12 @@ class FormController extends Controller
         $request->session()->forget('selectedUser');
         $request->session()->forget('selectedProject');
         
-        $totalRows = DB::table('projects')->count(); // Get the total number of rows
-        $paginationController = new PaginationController();
-        $result = $paginationController->displayPagination('Project', $totalRows); 
-        return view('projectform',['pagination' => $result['pagination'], 'data' => $result['data']]);
+        $projects = Project::paginate(3);
+        //$totalRows = DB::table('projects')->count(); // Get the total number of rows
+       // $paginationController = new PaginationController();
+       // $result = $paginationController->displayPagination('Project', $totalRows); 
+        return view('projectform',['projects' => $projects]);
        
     }
-    
 
 }
