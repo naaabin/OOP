@@ -116,8 +116,12 @@
 </div>
 
 @if(!empty($notaskerror))
-<div style="text-align: center; font-size: 20px; color: red;">{{ $notaskerror }}</div>
+    <div style="text-align: center; font-size: 20px; color: red;">{{ $notaskerror }}</div>
+    @php
+        exit(); // or return;
+    @endphp
 @endif
+
 
 @foreach ($tasks as $task)
 <div class="task-container">
@@ -167,7 +171,11 @@
     @endphp
     <h3 class="task-info">Project Names: {{ $projectNames }}</h3>
     <h3 class="task-info">Number of Projects : {{ $Numprojects }}</h3>
+    <div>
+       <h3 class="task-info"><a href="/TaskUpdateDetails?task_id={{$task->task_id}}" class="btn btn-primary">Task update Details</a></h3>
+    </div>
     
+    <br>
     <!-- edit and delete buttons -->
     <a href="/edit-task?task_id={{$task->task_id}}" class="btn btn-primary"><i class="fas fa-edit" style="color: yellow;"></i></a>
     <button onclick="deleteTask('{{ $task->task_id }}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>

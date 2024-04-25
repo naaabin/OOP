@@ -23,4 +23,9 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'project_user', 'project_id', 'id');
     }
 
+    public function notes()
+    {
+        return $this->hasMany(Pnote::class, 'project_id');
+    }
+
 }

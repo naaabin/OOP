@@ -7,9 +7,10 @@ use App\Models\Task;
 use App\Models\File;
 use App\Models\TaskFile;
 use App\Models\ProjectTask;
-use App\Models\ProjectUser;
 use App\Models\TaskUser;
+use App\Models\Note;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class TaskManagerController extends Controller
@@ -154,23 +155,63 @@ class TaskManagerController extends Controller
     }
 
     public function edittask(Request $request)
-    {   
-        $id = $request->input('id');
-        $task = Task::find($id);
-        $task->task = $request->input('new_task');
-        $task->description = $request->input('new_description');
-        $task->priority = $request->input('new_priority');
-        if($task->save())
-        {
+    {
+        try {
+            $id = $request->input('id');
+            $task = Task::find($id);
+
+            // Retrieve the updated task details from the request
+            $updatedTaskData = [
+                'task' => $request->input('new_task'),
+                'description' => $request->input('new_description'),
+                'priority' => $request->input('new_priority'),
+                
+            ];
+
+            // Prepare update information
+            $updateInformation = $request -> input('note_content');
+           // $updatedFields = [];
+
+            // Compare new data with existing data
+         //  foreach ($updatedTaskData as $field => $value) 
+          //  {
+                // If the field is different, add it to the list of updated fields
+          //      if ($value !== $task->$field) 
+          //      {
+          //          $updatedFields[] = $field;
+                
+                   
+          //      }   
+          //  }   
+
+            // If any fields were updated, append the update information to the note field
+           // if (!empty($updatedFields)) 
+          //  {
+             //   $updateInformation .= implode(", ", $updatedFields) . ".";
+               
+                // Create a new note
+                $note = new Note();
+                $note->task_id = $id;
+                $note->Description = $updateInformation;
+                //dd($note->toArray());
+                $note->save();
+          //  }
+
+            // Update the task in the database
+            $task->update($updatedTaskData);
+
             return redirect('/taskdisplay')->with('message', 'The selected task has been updated successfully');
-        }
-        else
+        } 
+        catch (\Exception $e) 
         {
-            return redirect('/taskdisplay')->with('error', 'Task update failed');
+            // Log the error message
+            Log::error('Error in edittask: ' . $e->getMessage());
+
+            // Redirect back with error message
+            return redirect()->back()->with('error', 'An error occurred while updating the task.');
         }
     }
 
-   
     public function deletetask(Request $request)
     {
             $id = $request->query('task_id');
@@ -192,4 +233,13 @@ class TaskManagerController extends Controller
                 }
             }
     }
+
+    public function taskupdatehistory(Request $request)
+    {
+        $id = $request->query('task_id');
+        $tasks = Task::where('task_id', $id)->with('notes')->get();
+        return view('TaskUpdateStatusPage', ['tasks'=> $tasks]);
+    }
+
+
 }

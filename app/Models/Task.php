@@ -11,7 +11,7 @@ class Task extends Model
     protected $table = 'tasks';
     protected $primaryKey = 'task_id';
     protected $fillable = ['task','description','priority'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function users()
     {
@@ -26,5 +26,10 @@ class Task extends Model
     public function projects()
     {
         return $this->belongsToMany(Project::class, 'project_task', 'task_id' , 'project_id');                
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class, 'task_id');
     }
 }

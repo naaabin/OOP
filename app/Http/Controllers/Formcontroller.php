@@ -69,11 +69,13 @@ class FormController extends Controller
         $request->session()->forget('selectedUser');
         $request->session()->forget('selectedProject');
         
-        $projects = Project::paginate(3);
+        $proj = new ProjectManagerController();
+        return $proj->DisplayProjects();
+        
         //$totalRows = DB::table('projects')->count(); // Get the total number of rows
        // $paginationController = new PaginationController();
        // $result = $paginationController->displayPagination('Project', $totalRows); 
-        return view('projectform',['projects' => $projects]);
+       
        
     }
 

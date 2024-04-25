@@ -70,5 +70,9 @@ Route::middleware('AuthGuard')-> group(  function()
     Route::post('/edit-project', [ProjectManagerController::class, 'editproject']);
 
     Route::get('/delete-project' ,[ProjectManagerController::class, 'deleteproject']);
+    Route::get('/TaskUpdateDetails' , [TaskManagerController::class, 'taskupdatehistory']);
+
+    Route::get('/ProjectUpdateDetails' , [ProjectManagerController::class, 'Projectupdatehistory']);
+  
 
 });

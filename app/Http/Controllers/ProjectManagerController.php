@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\Pnote;
 
 class ProjectManagerController extends Controller
 {    
@@ -48,28 +48,39 @@ class ProjectManagerController extends Controller
     }
 
     public function editproject(Request $request)
-    {   
-        $id = $request->input('new_ID');
-        $project = Project::find($id);
-        $project->Project_name = $request->input('new_project');
-        $project->Description = $request->input('new_description');
+    {
+            if(!$request->has('back'))
+            {
+                $id = $request->input('new_ID');
+                $project = Project::find($id);
+                $request->validate([
+                
+                    'note' => 'required|string'
+
+                ]);
+                
+                $note = $request->input('note');
+                // Create a new note
+                $note = new Pnote();
+                $note->project_id = $id;
+                $note->Description = $request->input('note');
+                $note->save();
         
-        if($request->has('back'))
-        {
-            return redirect('/projectform');
-        }
-
-        elseif($project->save())
-        {
-            return redirect('/projectform')->with('message', 'The selected project has been updated successfully');
-        }
-      
-        else
-        {
-            return redirect('/projectform')->with('error', 'Project update failed');
-        }
+                // Update the project
+                $project->Project_name = $request->input('new_project');
+                $project->Description  = $request->input('new_description');
+                
+                
+                $project->save();
+                return redirect('/projectform')->with('message', 'The selected project has been updated successfully');
+            }
+            else 
+            {
+                return redirect('/projectform');
+            }
+        
     }
-
+    
     public function deleteproject(Request $request)
     {
             $id = $request->query('project_id');
@@ -111,14 +122,17 @@ class ProjectManagerController extends Controller
         $noprojecterror = '';
         if($projects->isEmpty())
         {
-            $noprojecterror = 'No Project to display, please add project.';
+            $noprojecterror = 'No record found.';
         }
 
        // $totalRows = DB::table('projects')->count(); // Get the total number of rows
         //$paginationController = new PaginationController();
        // $result = $paginationController->displayPagination('Project', $totalRows); 
 
-        return view('projectdisplay',['noprojecterror'=>$noprojecterror, 'projects' => $projects]);
+       return view('projectform', [
+        'noprojecterror' => $noprojecterror,
+        'projects' => $projects
+    ]);
         
     }
 
@@ -206,6 +220,15 @@ class ProjectManagerController extends Controller
             'projects' => $projects,
             'taskfilter' => $taskfilter
         ]);
+    }
+
+
+    public function Projectupdatehistory(Request $request)
+    {
+        $id = $request->query('project_id');
+        $projects = Project::where('project_id', $id)->with('notes')->get();
+        return view('ProjectUpdateStatusPage', ['projects'=> $projects]);
+     
     }
     
 }

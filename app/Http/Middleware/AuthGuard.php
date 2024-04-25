@@ -23,7 +23,7 @@ class AuthGuard
         }
         else
         {
-            return redirect('/loginform');
+            return redirect('/loginform')->with('message', 'Please login first!' );
         }
            
     }

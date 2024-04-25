@@ -91,7 +91,10 @@
             <input type="text" class="form-control" name="new_description" value="{{ old('new_description', $task->description) }}">
             <h2>Priority</h2>
             <input type="text" class="form-control" name="new_priority" value="{{ old('new_priority', $task->priority) }}">
+            <h2>Note</h2>
+            <input type="text" class="form-control" name="note_content" value="">
             <button type="submit" class="btn btn-primary" name="update" value="Update">Update</button>
+        
             <a href="/taskdisplay" class="btn btn-secondary">Back</a>
         </form>
     </div>

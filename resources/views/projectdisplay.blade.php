@@ -69,12 +69,12 @@
 
 <div class="container">
 <h1>Projects and its details </h1>
-@if(isset($noprojecterror))
- <div  style="text-align: center;  font-size: 30px;">
-    {{$noprojecterror}}
- </div>
-@endif 
-
+@if(!empty($noprojecterror))
+<div style="text-align: center; font-size: 20px; color: red;">{{ $noprojecterror }}</div>
+@php
+    exit(); 
+@endphp
+@endif
 @foreach ($projects as $project)
 <br>
     <h2>Project : {{ $project->Project_name }}</h2>
@@ -111,6 +111,7 @@
             {{ implode(', ', $allFiles) }}
         </p>
     </div>
+    <a href="/ProjectUpdateDetails?project_id={{ $project->project_id }}" class="btn btn-primary">Project Update history</a> <br>
     <!-- edit and delete buttons -->               
 <a href="/edit-project?project_id={{ $project->project_id }}" class="btn btn-primary"><i class="fas fa-edit" style="color: yellow;"></i></a>
 <button onclick="deleteProject('{{ $project->project_id }}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
