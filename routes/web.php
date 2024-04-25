@@ -21,6 +21,7 @@ use App\Http\Controllers\TaskManagerController;
 Route::get('/', function () {
     return view('ProjectDashboard');
 });
+
 Route::get('/loginform', function () {
     return view('loginform');
 })->middleware('guest');
@@ -77,6 +78,6 @@ Route::middleware('AuthGuard')-> group(  function()
     Route::get('/TaskUpdateDetails' , [TaskManagerController::class, 'taskupdatehistory']);
 
     Route::get('/ProjectUpdateDetails' , [ProjectManagerController::class, 'Projectupdatehistory']);
-  
 
+    
 });

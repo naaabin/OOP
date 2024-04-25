@@ -8,7 +8,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
         }
 
         .container {
@@ -25,6 +25,7 @@
 
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
         }
 
         .card-header {
@@ -33,6 +34,7 @@
             color: #fff;
             text-align: center;
             padding: 20px;
+            font-size: 1.5em;
         }
 
         .card-body {
@@ -43,12 +45,14 @@
             width: 100%;
             padding: 10px;
             border-radius: 5px;
+            font-size: 1.2em;
         }
 
         .btn-secondary {
             width: 100%;
             padding: 10px;
             border-radius: 5px;
+            font-size: 1.2em;
         }
 
         .btn-secondary:hover {
@@ -59,7 +63,7 @@
             text-align: center;
             color:rgb(240, 16, 16);
             margin-bottom: 40px;
-
+            font-size: 2.5em;
         }
     </style>
 </head>

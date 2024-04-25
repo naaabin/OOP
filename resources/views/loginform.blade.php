@@ -55,6 +55,12 @@
     </div>
 	@endif
 
+    @if(session('passwordchange'))
+    <div class="alert alert-success" style="text-align: center; font-size: 30px;">
+            {{ session('passwordchange') }}
+        </div>
+        @endif
+
     @if(session('PasswordResetstatus'))
 <div class="alert alert-success" style="text-align: center; font-size: 30px;">
         {{ session('PasswordResetstatus') }}

@@ -58,10 +58,7 @@ class ForgetPasswordController extends Controller
     public function validateResetPasswordRequest(Request $request, $token = null)
     {
         $email = $request->query('email');
-        $user = User::where('email', $email)->first();
-
         
-
         // Retrieve the token record from the password_resets table
         $tokenRecord = PasswordReset::where('email', $email)->first();
 
@@ -98,7 +95,7 @@ class ForgetPasswordController extends Controller
 
         if($user) 
         {
-            PasswordReset::where('email', $email)->delete();
+            PasswordReset::where('email', $email)->delete();   //Deleting token record from the PasswordReset table
             return redirect('/loginform')->with('PasswordResetstatus', 'Password has been successfully reset.');    
         } 
         else 

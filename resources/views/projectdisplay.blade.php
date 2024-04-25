@@ -78,7 +78,7 @@
 @foreach ($projects as $project)
 <br>
     <h2>Project : {{ $project->Project_name }}</h2>
-    <h2>Description : {{$project-> Description}} </h2>
+    <h2>Description : {{ $project->Description }} </h2>
     <div class="task-details">
     
         @php
@@ -111,7 +111,8 @@
             {{ implode(', ', $allFiles) }}
         </p>
     </div>
-    <a href="/ProjectUpdateDetails?project_id={{ $project->project_id }}" class="btn btn-primary">Project Update history</a> <br>
+    <a href="/ProjectUpdateDetails?project_id={{ $project->project_id }}" class="btn btn-primary">Project Update history</a> 
+    <br><br>
     <!-- edit and delete buttons -->               
 <a href="/edit-project?project_id={{ $project->project_id }}" class="btn btn-primary"><i class="fas fa-edit" style="color: yellow;"></i></a>
 <button onclick="deleteProject('{{ $project->project_id }}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>

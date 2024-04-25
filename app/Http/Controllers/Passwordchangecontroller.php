@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; // Don't forget to import Hash
+use Illuminate\Support\Facades\Hash; 
+use Illuminate\Support\Facades\Auth;
 
 class PasswordChangeController extends Controller
 {
@@ -25,7 +26,9 @@ class PasswordChangeController extends Controller
             {
                 // Update the user's password
                 $user->update(['password' => Hash::make($request['password'])]);
-                return redirect('/logout');
+                Auth::logout();
+                $request->session()->forget('user');
+                return redirect('/loginform')->with('passwordchange', 'Password has been successfully changed.');
             } 
             else 
             {
