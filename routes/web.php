@@ -31,12 +31,13 @@ Route::post('/signupform', [FormController::class ,'signup_form'])->name('signup
 
 Route::post('/projectadd', [ProjectManagerController::class ,'add_project'])->name('projectadd');
 Route::get('/logout', [ProjectManagerController::class ,'logout'])->name('logout');
-Route::get('/ForgetPasswordController', [ForgetPasswordController::class, 'ForgetPasswordController']);
-Route::post('/ForgetPasswordController', [ForgetPasswordController::class, 'forget_password']);
-Route::get('/passwordresetstatus', [ForgetPasswordController::class, 'passwordresetstatuspage']);
+Route::get('/forgetpassword', [ForgetPasswordController::class, 'forgetpassword']);
+Route::post('/forgetpassword', [ForgetPasswordController::class, 'forget_password']);
+
+Route::get('/passwordresetstatus', [ForgetPasswordController::class, 'PasswordResetstatuspage'])->name('reset.status');
 
 Route::get('/resetpassword/{token}', [ForgetPasswordController::class, 'validateResetPasswordRequest']);
-Route::post('/resetpassword', [ForgetPasswordController::class, 'changepassword'])->name('change_password');
+Route::post('/resetpassword', [ForgetPasswordController::class, 'changepassword']);
 
 Route::middleware('AuthGuard')-> group(  function()  
 {

@@ -4,10 +4,11 @@
 
 </head>
     <body>
-        @if (session('message'))
-        <div class="alert alert-warning" style="text-align: center; font-size: 30px;">
-            {{ session('message') }}
-        </div>
-        @endif
+        @if(isset($message))
+    <div class="alert alert-warning" style="text-align:center; font-size: 40px;">
+        {{ $message }}
+    </div>
+@endif
+
     </body>
 </html>

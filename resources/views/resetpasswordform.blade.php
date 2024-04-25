@@ -71,7 +71,7 @@
         </div>
         @endif
         <h1>Reset Password</h1>
-        <form method="POST" action="{{route('change_password')}}">
+        <form method="POST" action="/resetpassword">
             @csrf
             <div class="form-group">
             <input type="hidden" name="token" value="{{ $token }}">

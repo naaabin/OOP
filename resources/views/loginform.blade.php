@@ -55,9 +55,9 @@
     </div>
 	@endif
 
-    @if(session('passwordresetstatus'))
+    @if(session('PasswordResetstatus'))
 <div class="alert alert-success" style="text-align: center; font-size: 30px;">
-        {{ session('passwordresetstatus') }}
+        {{ session('PasswordResetstatus') }}
     </div>
 	@endif
         <h2 class="text-center mb-4 font-weight-bold" style="color: red;">Welcome to the login page</h2>

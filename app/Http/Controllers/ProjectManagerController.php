@@ -7,7 +7,6 @@ use App\Models\Project;
 use App\Models\User;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Models\Pnote;
 
 class ProjectManagerController extends Controller
@@ -106,13 +105,15 @@ class ProjectManagerController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        
+         
+            Auth::logout();
+            $request->session()->flush();
 
-        //clear the session data 
-         $request->session()->flush();
 
-        return redirect('/loginform')->with('message', 'You have been logged out successfully.');
+            return redirect('/loginform')->with('message', 'You have been logged out successfully.');
     }
+    
 
 
     public function DisplayProjects()

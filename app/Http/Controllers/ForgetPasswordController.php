@@ -57,14 +57,10 @@ class ForgetPasswordController extends Controller
 
     public function validateResetPasswordRequest(Request $request, $token = null)
     {
-        $email = $request->input('email');
+        $email = $request->query('email');
         $user = User::where('email', $email)->first();
 
-        // Check if the user exists
-        if (!$user) 
-        {
-            return redirect()->to(url('/PasswordResetstatus'))->with('message', 'No user found with that email address.');
-        }
+        
 
         // Retrieve the token record from the password_resets table
         $tokenRecord = PasswordReset::where('email', $email)->first();
@@ -78,15 +74,15 @@ class ForgetPasswordController extends Controller
         else 
         {
             // Token is invalid or does not exist
-            return redirect()->to(url('/PasswordResetstatus'))->with('message', 'This password reset token is invalid.');
+            return redirect()->route('reset.status');
         }
     }
 
-
-   public function PasswordResetstatuspage()
-   {
-          return view('email.displayresetpasswordstatus');
-   }
+    public function PasswordResetstatuspage()
+    {
+        $message = 'Invalid or expired token.';
+        return view('email.displayresetpasswordstatus', compact('message'));
+    }
 
 
    public function changepassword(Request $request)
