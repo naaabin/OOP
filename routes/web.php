@@ -18,6 +18,9 @@ use App\Http\Controllers\TaskManagerController;
 |
 */
 
+Route::get('/', function () {
+    return view('ProjectDashboard');
+});
 Route::get('/loginform', function () {
     return view('loginform');
 })->middleware('guest');
