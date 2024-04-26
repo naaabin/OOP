@@ -61,7 +61,6 @@ Route::middleware('AuthGuard')-> group(  function()
     Route::get('/edit-task' ,[TaskManagerController::class, 'edittaskpage']);
     Route::post('/edit-task', [TaskManagerController::class, 'edittask']);
     
-    
     Route::get('/delete-task' ,[TaskManagerController::class, 'deletetask']);
     Route::get('/projectdisplay', [ProjectManagerController::class , 'DisplayProjects']);
     
@@ -79,5 +78,5 @@ Route::middleware('AuthGuard')-> group(  function()
 
     Route::get('/ProjectUpdateDetails' , [ProjectManagerController::class, 'Projectupdatehistory']);
 
-    
+
 });

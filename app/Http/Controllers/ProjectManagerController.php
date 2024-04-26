@@ -148,22 +148,19 @@ class ProjectManagerController extends Controller
     {
         
         // Retrieve the flashed data from the session
-        $tasks = session('tasks');
         $userfilter = session('userfilter');
         $projectfilter = session('projectfilter');
-        $users = session('users');
-        $projects = session('projects');
         $taskfilter = session('taskfilter');
+        $tasks  = session('tasks');
 
-        // If there is no flashed data, retrieve all users, Project, and Task from the database
-        if (!$tasks && !$userfilter && !$projectfilter && !$users && !$projects && !$taskfilter) 
+        // If there is no flashed data, retrieve all Task from the database
+        if (!$userfilter && !$projectfilter &&  !$taskfilter) 
         {
-            $users = User::all();
-            $projects = Project::all();
+            
             $tasks = Task::with('users', 'projects')->get();
         }
 
-        return view('filtering', ['users' => $users, 'projects' => $projects, 'tasks' => $tasks , 'userfilter'=> $userfilter, 'projectfilter'=> $projectfilter, 'taskfilter' => $taskfilter]);
+        return view('filtering', ['tasks'=>$tasks ,'userfilter'=> $userfilter, 'projectfilter'=> $projectfilter, 'taskfilter' => $taskfilter]);
     }
 
     public function process_filter(Request $request)
@@ -176,15 +173,12 @@ class ProjectManagerController extends Controller
         $request->session()->put('selectedUser', $selectedUser);
         $request->session()->put('selectedProject', $selectedProject);
 
-        // Retrieve all users and Project from the database
-        $users = User::all();
-        $projects = Project::all();
-
         // Initialize the variables to hold the results
         $userfilter = null;
         $projectfilter = null;
         $taskfilter = null;
         $tasks = null;
+        
 
         // If a user is selected and no project is selected, fetch the user with its associated Task, Project, and files
         if (!empty($selectedUser) && empty($selectedProject)) 
@@ -205,21 +199,17 @@ class ProjectManagerController extends Controller
                 $query->where('projects.project_id', $selectedProject);
             })->with(['users', 'projects', 'files'])->get();
         }
+        
 
-        // If neither a user nor a project is selected, fetch all Task with their associated users, Project, and files
-        else 
-        {
-            $tasks = Task::with(['users', 'projects', 'files'])->get();
-        }
+       
 
         // Redirect to the filtering page with the results
         return redirect('/filtering')->with([
-            'tasks' => $tasks,
+            
             'userfilter' => $userfilter,
             'projectfilter' => $projectfilter,
-            'users' => $users,
-            'projects' => $projects,
-            'taskfilter' => $taskfilter
+            'taskfilter' => $taskfilter,
+            'tasks'  => $tasks,
         ]);
     }
 
