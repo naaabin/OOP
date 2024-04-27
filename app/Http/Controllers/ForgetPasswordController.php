@@ -40,6 +40,7 @@ class ForgetPasswordController extends Controller
 
         // Email subject
         $subject = 'Password Reset Link';
+    
 
         // Send the email using a view
         try {

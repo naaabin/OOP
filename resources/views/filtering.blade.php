@@ -98,7 +98,7 @@
 </head>
 <body>
     <h1> DASHBOARD </h1>
-    <form method="post" action="/processfilter">
+    <form method="get" action="/filtering">
     @csrf
 
     <label for="users"><h2>Users</h2></label>

@@ -144,31 +144,12 @@ class ProjectManagerController extends Controller
 
     }
 
-    public function filterpage()
-    {
-        
-        // Retrieve the flashed data from the session
-        $userfilter = session('userfilter');
-        $projectfilter = session('projectfilter');
-        $taskfilter = session('taskfilter');
-        $tasks  = session('tasks');
-
-        // If there is no flashed data, retrieve all Task from the database
-        if (!$userfilter && !$projectfilter &&  !$taskfilter) 
-        {
-            
-            $tasks = Task::with('users', 'projects')->get();
-        }
-
-        return view('filtering', ['tasks'=>$tasks ,'userfilter'=> $userfilter, 'projectfilter'=> $projectfilter, 'taskfilter' => $taskfilter]);
-    }
-
-    public function process_filter(Request $request)
+    public function filterpage(Request $request)
     {
         // Get the selected user and project from the request
         $selectedUser = $request->input('UserDropdownData');
         $selectedProject = $request->input('ProjectDropdownData');
-
+    
         // Store the selected user and project into the session
         $request->session()->put('selectedUser', $selectedUser);
         $request->session()->put('selectedProject', $selectedProject);
@@ -178,8 +159,7 @@ class ProjectManagerController extends Controller
         $projectfilter = null;
         $taskfilter = null;
         $tasks = null;
-        
-
+    
         // If a user is selected and no project is selected, fetch the user with its associated Task, Project, and files
         if (!empty($selectedUser) && empty($selectedProject)) 
         {
@@ -199,19 +179,24 @@ class ProjectManagerController extends Controller
                 $query->where('projects.project_id', $selectedProject);
             })->with(['users', 'projects', 'files'])->get();
         }
-        
-
-       
-
-        // Redirect to the filtering page with the results
-        return redirect('/filtering')->with([
-            
+        else
+        {
+            // Retrieve tasks based on the selected filters (if any)
+            $tasks = Task::with('users', 'projects')->get();
+        }
+    
+        // Return the view with the filtered data
+        return view('filtering', [
+            'tasks' => $tasks,
             'userfilter' => $userfilter,
             'projectfilter' => $projectfilter,
             'taskfilter' => $taskfilter,
-            'tasks'  => $tasks,
         ]);
     }
+    
+
+    
+    
 
 
     public function Projectupdatehistory(Request $request)

@@ -65,10 +65,9 @@ Route::middleware('AuthGuard')-> group(  function()
     Route::get('/projectdisplay', [ProjectManagerController::class , 'DisplayProjects']);
     
     Route::get('/users', [ProjectManagerController::class , 'userdashboard']);
-    Route::get('/filtering', [ProjectManagerController::class , 'filterpage']);
     
-    Route::post('/processfilter', [ProjectManagerController::class , 'process_filter']);
-    Route::get('/processfilter', [ProjectManagerController::class , 'process_filter']);
+    Route::get('/filtering', [ProjectManagerController::class , 'filterpage']);
+   // Route::get('/processfilter', [ProjectManagerController::class , 'filterpage']);
     
     Route::get('/edit-project', [ProjectManagerController::class, 'editprojectpage']);
     Route::post('/edit-project', [ProjectManagerController::class, 'editproject']);
