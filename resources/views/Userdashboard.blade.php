@@ -76,10 +76,7 @@
     </td>
 </tr>
 @endforeach
-
 </table>
-
-
 <a href="/projectform"><button type="button">Back to projects</button></a>
 </body>
 </html>

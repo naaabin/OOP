@@ -114,8 +114,6 @@ class ProjectManagerController extends Controller
             return redirect('/loginform')->with('message', 'You have been logged out successfully.');
     }
     
-
-
     public function DisplayProjects()
     {
         
@@ -130,10 +128,10 @@ class ProjectManagerController extends Controller
         //$paginationController = new PaginationController();
        // $result = $paginationController->displayPagination('Project', $totalRows); 
 
-       return view('projectform', [
+        return view('projectform', [
         'noprojecterror' => $noprojecterror,
         'projects' => $projects
-    ]);
+       ]);
         
     }
 
