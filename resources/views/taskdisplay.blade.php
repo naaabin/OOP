@@ -1,5 +1,5 @@
 
-
+@include('partials.navigation')
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,4 +1,9 @@
 
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +38,7 @@
             background-color: #e7d7d7;
             margin: 0;
             padding: 0;
+            
         }
 
         .container {
@@ -67,22 +73,27 @@
             box-sizing: border-box;
         }
 
-        button {
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-
         .alert {
             text-align: center;
             font-size: 24px;
         }
+        .header
+        {
+            padding: 8px; 
+            text-align: center;
+            box-shadow: 0 0 10px rgba(206, 104, 104, 0.1);
+            width: 60%;
+            margin-left: 340px;
+        }
     </style>
 </head>
 <body>
-
+    <div class="header">
+        @include('partials.navigation')
+    </div>
 <div class="container">
+ 
+  
     <h1>To-Do List</h1>
 
     <form method="POST" enctype="multipart/form-data" action="/addtask">
@@ -145,10 +156,6 @@
         </div>
 
         <button type="submit" class="btn btn-primary" name="addtask">Add Task</button>
-        <a href="/projectform" class="btn btn-secondary">Go to Projects Page</a>
-        <a href="/taskdisplay" class="btn btn-secondary">Go to Tasks Page</a>
-        <a href="/users" class="btn btn-secondary">Users</a>
-        <a href="/logout" class="btn btn-secondary" name="logout" value="Logout">Logout</a>
     </form>
 </div>
 

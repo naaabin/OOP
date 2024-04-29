@@ -52,23 +52,24 @@ Route::middleware('AuthGuard')-> group(  function()
         return view('changepassword');
     });
     
-    Route::post('/changepassword', [PasswordChangeController::class ,'change_password']);
-    Route::get('/todolist', [TaskManagerController::class, 'get_projects_users']);
+    Route::post('/changepassword', [PasswordChangeController::class ,'change_password'])->name('changepassword');
+
+    Route::get('/todolist', [TaskManagerController::class, 'addtaskpage'])->name('todolist');
     Route::post('/addtask', [TaskManagerController::class, 'add_task']);
+
     
-    Route::get('/taskdisplay', [TaskManagerController::class , 'Displaytasks']);
+    Route::get('/taskdisplay', [TaskManagerController::class , 'Displaytasks'])->name('taskdisplay');
     
     Route::get('/edit-task' ,[TaskManagerController::class, 'edittaskpage']);
     Route::post('/edit-task', [TaskManagerController::class, 'edittask']);
     
     Route::get('/delete-task' ,[TaskManagerController::class, 'deletetask']);
-    Route::get('/projectdisplay', [ProjectManagerController::class , 'DisplayProjects']);
+    Route::get('/projectdisplay', [ProjectManagerController::class , 'DisplayProjects'])->name('projectdisplay');
     
-    Route::get('/users', [ProjectManagerController::class , 'userdashboard']);
+    Route::get('/users', [ProjectManagerController::class , 'userdashboard'])->name('users');
     
-    Route::get('/filtering', [ProjectManagerController::class , 'filterpage']);
-   // Route::get('/processfilter', [ProjectManagerController::class , 'filterpage']);
-    
+    Route::get('/filtering', [ProjectManagerController::class , 'filterpage'])->name('filtering');
+
     Route::get('/edit-project', [ProjectManagerController::class, 'editprojectpage']);
     Route::post('/edit-project', [ProjectManagerController::class, 'editproject']);
 
@@ -79,3 +80,6 @@ Route::middleware('AuthGuard')-> group(  function()
 
 
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

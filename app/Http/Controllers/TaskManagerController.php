@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 class TaskManagerController extends Controller
 {
-    public function get_projects_users()
+    public function addtaskpage()
     {
         $projects = Project::all();
         $users = User::all();
