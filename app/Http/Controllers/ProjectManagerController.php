@@ -181,7 +181,7 @@ class ProjectManagerController extends Controller
         }
         else
         {
-            // Retrieve tasks based on the selected filters (if any)
+          
             $tasks = Task::with('users', 'projects')->get();
         }
     
@@ -194,11 +194,6 @@ class ProjectManagerController extends Controller
         ]);
     }
     
-
-    
-    
-
-
     public function Projectupdatehistory(Request $request)
     {
         $id = $request->query('project_id');

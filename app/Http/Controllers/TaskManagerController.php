@@ -107,8 +107,7 @@ class TaskManagerController extends Controller
                   
                 }
             }
-
-                   
+           
         });
         return redirect('/todolist')->with('message', 'Task and its details added successfully'); 
       }
@@ -136,8 +135,6 @@ class TaskManagerController extends Controller
         // Return the view with the tasks, error message, pagination links, and data
         return view('taskdisplay', ['tasks' => $tasks, 'notaskerror' => $notaskerror]);
     }
-
-    
 
     public function edittaskpage(Request $request)
     {
@@ -240,6 +237,4 @@ class TaskManagerController extends Controller
         $tasks = Task::where('task_id', $id)->with('notes')->get();
         return view('TaskUpdateStatusPage', ['tasks'=> $tasks]);
     }
-
-
 }

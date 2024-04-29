@@ -91,16 +91,12 @@
         {
             background-color: #f2f2f2;
         }
-    
     </style>
-
-
 </head>
 <body>
     <h1> DASHBOARD </h1>
     <form method="get" action="/filtering">
     @csrf
-
     <label for="users"><h2>Users</h2></label>
     <select name="UserDropdownData">
     <option value="">Select a user</option>

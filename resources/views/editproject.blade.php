@@ -82,7 +82,6 @@
         @error('note')
         <div class="alert alert-warning">{{ $message }} </div>
         @enderror
-
         <button type="submit" name="update">Update</button>
         <a href="/projectform"><button class="btn btn-primary" name="back"> Back </button></a>
     </form>
