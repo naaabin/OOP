@@ -19,7 +19,7 @@ use App\Http\Controllers\TaskManagerController;
 */
 
 Route::get('/', function () {
-    return view('ProjectDashboard');
+return view('ProjectDashboard');
 });
 
 Route::get('/loginform', function () {
@@ -28,7 +28,7 @@ Route::get('/loginform', function () {
 
 Route::get('/signupform', function () {
     return view('signupform');
-});
+})->middleware('guest');
 
 Route::post('/loginform', [FormController::class ,'login_form'])->name('loginform');
 Route::post('/signupform', [FormController::class ,'signup_form'])->name('signupform');
@@ -80,6 +80,3 @@ Route::middleware('AuthGuard')-> group(  function()
 
 
 });
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

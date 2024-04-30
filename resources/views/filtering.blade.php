@@ -1,5 +1,3 @@
-
-@include('partials.navigation')
 @extends('layouts.app')
 @section('title', 'Filtering page')
 @section('css')

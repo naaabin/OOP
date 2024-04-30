@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Your To-Do List')
 @section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/todolist.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
 @endsection
 <script src="https://kit.fontawesome.com/7b92c82a52.js" crossorigin="anonymous"></script>
@@ -28,9 +27,6 @@
 <body>
 
 @section('content')
-    <div class="header">
-        @include('partials.navigation')
-    </div>
 <div class="container">
     <h1>To-Do List</h1>
     <form method="POST" enctype="multipart/form-data" action="/addtask">

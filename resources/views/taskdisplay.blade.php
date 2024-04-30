@@ -1,5 +1,4 @@
 
-@include('partials.navigation')
 @extends('layouts.app')
 @section('title', 'Task Details')
 @section('css')

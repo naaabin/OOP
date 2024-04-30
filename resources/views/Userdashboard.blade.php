@@ -1,6 +1,3 @@
-
-@include('partials.navigation')
-
 @extends('layouts.app')
 @section('title', 'Users Dashboard')
 @section('css')
