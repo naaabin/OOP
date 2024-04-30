@@ -1,76 +1,15 @@
 
 @include('partials.navigation')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .task-container {
-            background-color: #fff;
-            border: 0px solid #ccc;
-            border-radius: 5px;
-            padding: 5px;
-            margin-bottom: 15px;
-            max-width: 100%;
-            font-size: 14px;
-           
-        }
-        
-        .task-info {
-            margin-bottom: 5px;
-        }
-        
-        .task-info span {
-            font-weight: bold;
-        }
+@extends('layouts.app')
+@section('title', 'Task Details')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/taskdisplay.css') }}">
+@endsection
+<script src="https://kit.fontawesome.com/7b92c82a52.js" crossorigin="anonymous"></script>
 
-        h2 {
-            color: red;
-            font-size: 18px;
-        }
-
-        h1 {
-            color: green;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            margin-right: 10px; 
-            cursor: pointer;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            padding: 8px 12px;
-            text-decoration: none;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-        }
-
-        .btn-primary {
-            margin-top: 10px;
-            background-color: #0174f0;
-        }
-        .thumbnail-image {
-              width: 15px;
-               height: 15px;
-                        }
-       
-    </style>
     <script>
-        function deleteTask(taskId) {
+        function deleteTask(taskId) 
+        {
             var userConfirmation = confirm("Are you sure you want to delete this task?");
             if (userConfirmation) {
                 window.location.href = '/delete-task?task_id=' + taskId;
@@ -89,17 +28,17 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        } else {
+        } 
+        else 
+        {
             console.log('Download cancelled by the user.');
             window.open(filePath,'_blank');
         }
-}
+        }
   </script>
-      <script src="https://kit.fontawesome.com/7b92c82a52.js" crossorigin="anonymous"></script>
       
-</head>
 <body>
-    
+@section('content')   
 @if(session('message'))
 <div style="text-align: center; font-size: 40px; color: green; font-weight: bold;">{{ session('message') }}</div>
 @endif
@@ -109,11 +48,6 @@
 @endif
 
 <h1>Tasks and their associated details</h1>
-<div class="row" margin-top: 10px;">
-    <a href="/todolist" class="btn">Add new task to the project</a>
-    <a href="/users" class="btn">Users</a>
-    <a href="/logout" class="btn">Logout</a>
-</div>
 
 @if(!empty($notaskerror))
     <div style="text-align: center; font-size: 20px; color: red;">{{ $notaskerror }}</div>
@@ -181,11 +115,11 @@
     <button onclick="deleteTask('{{ $task->task_id }}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
 </div>
 @endforeach
+<br>    
 
-    <br>
-    
-</body>
 <div class="row" style="text-align: center;">
     {{ $tasks->links() }}
 </div>
+@endsection
+</body>
 </html>

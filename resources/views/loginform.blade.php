@@ -1,51 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN PAGE</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #ADD8E6; /* Set your desired background color */
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input {
-            text-align: center;
-            width: 50%;
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #4caf50;
-            color: #ADD8E6;
-            padding: 20px 15px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        form {
-            font-size: X-LARGE;
-        }
-    </style>
+@extends('layouts.app')
+@section('title', 'LOGIN PAGE')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/projectform.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+@endsection   
+<script>
+    function func() {
+        var confirmation = confirm('Are you sure you want to reset the password?');
 
+        if (confirmation) {
+            window.location.href = '/forgetpassword';
+        } else {
+            window.location.href = '/loginform';
+        }
+    }
+</script>
+
+<body>
+@section('content')
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh; width: 80%;">
     <div class="border rounded p-5" style="background-color: #D3D3D3;">
  
@@ -98,17 +70,6 @@
         </form>
     </div>
 </div>
-
-<script>
-    function func() {
-        var confirmation = confirm('Are you sure you want to reset the password?');
-
-        if (confirmation) {
-            window.location.href = '/forgetpassword';
-        } else {
-            window.location.href = '/loginform';
-        }
-    }
-</script>
+@endsection
 </body>
 </html>

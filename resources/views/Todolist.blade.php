@@ -1,17 +1,10 @@
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your To-Do List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://kit.fontawesome.com/7b92c82a52.js" crossorigin="anonymous"></script>
+@extends('layouts.app')
+@section('title', 'Your To-Do List')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/todolist.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+@endsection
+<script src="https://kit.fontawesome.com/7b92c82a52.js" crossorigin="anonymous"></script>
     <script>
         function downloadFile(filePath, fileName) {
             // Show a confirmation dialog
@@ -32,70 +25,14 @@
             }
         }
     </script>
-    <style>
-       body {
-            font-family: Arial, sans-serif;
-            background-color: #e7d7d7;
-            margin: 0;
-            padding: 0;
-            
-        }
-
-        .container {
-            max-width: 700px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: #e50909;
-        }
-
-        form {
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input, button {
-            margin-bottom: 10px;
-            padding: 8px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .alert {
-            text-align: center;
-            font-size: 24px;
-        }
-        .header
-        {
-            padding: 8px; 
-            text-align: center;
-            box-shadow: 0 0 10px rgba(206, 104, 104, 0.1);
-            width: 60%;
-            margin-left: 340px;
-        }
-    </style>
-</head>
 <body>
+
+@section('content')
     <div class="header">
         @include('partials.navigation')
     </div>
 <div class="container">
- 
-  
     <h1>To-Do List</h1>
-
     <form method="POST" enctype="multipart/form-data" action="/addtask">
         @csrf
         @if (session('error'))
@@ -158,6 +95,6 @@
         <button type="submit" class="btn btn-primary" name="addtask">Add Task</button>
     </form>
 </div>
-
+@endsection
 </body>
 </html>

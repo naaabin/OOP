@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Update Status</title>
-    <style>
-       .container {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-</style>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
+@extends('layouts.app')
+@section('title', 'Task Update Status')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/taskupdatestatuspage.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+@endsection
 <body>
+    @section('content')
     <div class="container">
         <h1>Task Update Details</h1>
         <div class="row">
@@ -54,6 +43,6 @@
             </div>
         </div>
     </div>
-    
+  @endsection  
 </body>
 </html>

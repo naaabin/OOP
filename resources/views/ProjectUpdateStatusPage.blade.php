@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Update Status</title>
-    <style>
-       .container {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
+@extends('layouts.app')
+@section('title', 'Project Update Status')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/projectupdatestatus.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+@endsection
 
-</style>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
 <body>
+    @section('content')
     <div class="container">
         <h1>Project Update Details</h1>
         <div class="row">
@@ -54,6 +44,6 @@
             </div>
         </div>
     </div>
-    
+    @endsection
 </body>
 </html>

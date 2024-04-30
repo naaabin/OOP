@@ -1,100 +1,13 @@
 
 @include('partials.navigation')
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Filtering page</title>
-    <style>
-        body 
-        {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
+@extends('layouts.app')
+@section('title', 'Filtering page')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/filtering.css') }}">
+@endsection
 
-        h1 
-        {
-            text-align: center;
-            color: green;
-            margin-top: 20px;
-        }
-
-        h2 
-        {
-            text-align: center;
-            color: rgb(226, 27, 87);
-            font-weight: bold;
-        }
-
-        form 
-        {
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            display: inline-flex;
-            align-items: baseline;
-            margin-left: 20%;
-            font-size: 16px; /* Decrease font size */
-        }
-
-        select, button[type="submit"] , button[type="button"]
-        {
-                padding: 10px;
-                font-size: 14px; /* Decrease font size */
-                width: 200px; /* Adjust width as needed */
-                margin: 15px 40px; /* Add space between elements */
-        }
-
-        label 
-        {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-       
-        button[type="submit"] 
-        {
-            background-color: green;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button[type="button"] 
-        {
-            background-color: green;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        table 
-        {
-            border-collapse: collapse;
-            width: 90%;
-            margin: 20px auto;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        th, td 
-        {
-            border: 1px solid #ddd;
-            padding: 15px;
-            text-align: left;
-        }
-
-        th 
-        {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
 <body>
+    @section('content')
     <h1> DASHBOARD </h1>
     <form method="get" action="/filtering">
     @csrf
@@ -235,5 +148,6 @@
     @if($taskfilter && count($taskfilter) == 0)
         <h1>No records found for the selected user and project.</h1>
     @endif
+    @endsection
 </body>
 </html>

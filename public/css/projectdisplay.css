@@ -1,0 +1,45 @@
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e7d7d7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px; /* Adjusted container width */
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: green;
+            text-align: left;
+        }
+        h2 {
+            color: red;
+            text-align: left;
+        }
+
+        .task-details {
+            margin-bottom: 20px;
+        }
+
+        .task-details h3 {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .comma-separated-list {
+            margin-bottom: 15px;
+            font-style: italic;
+            color: #666;
+        }
+
+        .comma-separated-list span {
+            margin-right: 5px;
+        }

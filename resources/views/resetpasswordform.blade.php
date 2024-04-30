@@ -1,70 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
-    <style>
-
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #ADD8E6;
-        }
-
-        .container {
-            width: 400px;
-            height: 400px;
-            margin: 100px auto;
-            background-color: #D3D3D3;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input {
-            text-align: center;
-            width: 50%;
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #4caf50;
-            color: #ADD8E6;
-            padding: 20px 15px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        form {
-            width: 800px;
-            height: 700px;
-            border-radius: 8px;
-            font-size: XX-LARGE;
-        }
-   
-    </style>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-</head>
+@extends('layouts.app')
+@section('title', 'Reset Password')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/resetpasswordform.css') }}">
+@endsection
+  
 <body>
+    @section('content')
 
     <div class="container">
-        
-        
         @if(session('message'))
             <div class="alert alert-danger" style="text-align: center; font-size: 30px;">
                 {{session('message')}}
@@ -93,5 +36,6 @@
             <input type="submit" name="submit" value="Reset Password">
         </form>
     </div>
+    @endsection
 </body>
 </html>
