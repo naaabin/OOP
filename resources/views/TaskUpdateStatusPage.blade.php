@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/taskupdatestatuspage.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 @endsection
-<body>
+
     @section('content')
     <div class="container">
         <h1>Task Update Details</h1>
@@ -44,5 +44,4 @@
         </div>
     </div>
   @endsection  
-</body>
-</html>
+

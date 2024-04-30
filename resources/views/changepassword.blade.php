@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 @endsection
 
-<body>
+
 @section('content')
 @if(session('message'))
 <div class="alert alert-danger" style="text-align: center; font-size: 30px;">
@@ -42,5 +42,4 @@
         <a href="/projectform"><button type="button" name="goback" value="Back">Back</button></a>
     </form>
     @endsection
-</body>
-</html>
+

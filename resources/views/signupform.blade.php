@@ -6,7 +6,7 @@
  <link rel="stylesheet" type="text/css" href="{{ asset('css/signupform.css') }}">
  @endsection
 
-<body>
+
 @section('content')
 
 @if(session('message'))
@@ -76,5 +76,4 @@
     }
 </script>
 @endsection
-</body>
-</html>
+

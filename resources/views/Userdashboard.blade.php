@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/users.css') }}">
 @endsection
 
-<body>
+
 @section('content')
 <h1> Users and their Details</h1> 
 <table align="center">
@@ -41,5 +41,4 @@
 @endforeach
 </table>
 @endsection
-</body>
-</html>
+

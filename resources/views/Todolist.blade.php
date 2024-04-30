@@ -24,7 +24,7 @@
             }
         }
     </script>
-<body>
+
 
 @section('content')
 <div class="container">
@@ -92,5 +92,4 @@
     </form>
 </div>
 @endsection
-</body>
-</html>
+

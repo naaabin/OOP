@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/resetpasswordform.css') }}">
 @endsection
   
-<body>
+
     @section('content')
 
     <div class="container">
@@ -37,5 +37,4 @@
         </form>
     </div>
     @endsection
-</body>
-</html>
+

@@ -36,7 +36,7 @@
         }
   </script>
       
-<body>
+
 @section('content')   
 @if(session('message'))
 <div style="text-align: center; font-size: 40px; color: green; font-weight: bold;">{{ session('message') }}</div>
@@ -120,5 +120,4 @@
     {{ $tasks->links() }}
 </div>
 @endsection
-</body>
-</html>
+

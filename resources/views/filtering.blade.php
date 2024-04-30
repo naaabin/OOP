@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/filtering.css') }}">
 @endsection
 
-<body>
+
     @section('content')
     <h1> DASHBOARD </h1>
     <form method="get" action="/filtering">
@@ -147,5 +147,4 @@
         <h1>No records found for the selected user and project.</h1>
     @endif
     @endsection
-</body>
-</html>
+

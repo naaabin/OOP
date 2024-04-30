@@ -16,7 +16,7 @@
     }
 </script>
 
-<body>
+
 @section('content')
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh; width: 80%;">
     <div class="border rounded p-5" style="background-color: #D3D3D3;">
@@ -71,5 +71,4 @@
     </div>
 </div>
 @endsection
-</body>
-</html>
+

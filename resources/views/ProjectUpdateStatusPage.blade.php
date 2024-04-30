@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 @endsection
 
-<body>
+
     @section('content')
     <div class="container">
         <h1>Project Update Details</h1>
@@ -45,5 +45,4 @@
         </div>
     </div>
     @endsection
-</body>
-</html>
+

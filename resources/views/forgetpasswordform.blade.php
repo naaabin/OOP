@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 @endsection
 
-<body>
+
 @section('content')
     <!-- Forgot Password Form -->
     @if (session('message'))
@@ -25,5 +25,4 @@
         <a href="/loginform"><button type="button" name="gobacklogin">Go back to login</button></a>
     </form>
     @endsection
-</body>
-</html>
+
