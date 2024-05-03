@@ -103,8 +103,6 @@ class ForgetPasswordController extends Controller
             return back()->with('message', 'There was an error resetting your password.');
         }
     }   
-
-
 }
 
 

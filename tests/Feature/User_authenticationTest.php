@@ -91,7 +91,13 @@ class User_authenticationTest extends TestCase
     public function test_change_password_with_valid_data()
     {
         $user = User::factory()->create();
-    
+        $token = Str::random(40);
+
+        PasswordReset::create([
+            'email'=> $user->email,
+            'token'=> bcrypt($token),
+        ]);
+        
         $validData = [
             'password' => 'Newpassword@12',
             'password_confirmation' => 'Newpassword@12',
@@ -107,24 +113,39 @@ class User_authenticationTest extends TestCase
         $hashedPassword = $user->password;   //now this contains updated hashed password
         $this->assertTrue(Hash::check($validData['password'], $hashedPassword));
     
-        // Assert a redirect to the login form
+        // Assert the token record is deleted from the PasswordReset table
+        $this->assertDatabaseMissing('password_resets', [
+            'email' => $validData['email'],
+        ]);
+        // Assert a redirect to the login form 
         $response->assertRedirect('/loginform');
         $response->assertSessionHas('PasswordResetstatus', 'Password has been successfully reset.');
+        
     }
     
     public function test_change_password_with_invalid_data()
     {
         $user = User::factory()->create();
-    
+        $token = Str::random(40);  
+        PasswordReset::create([
+            'email'=> $user->email,
+            'token'=> bcrypt($token),
+        ]);
+
         $invalidData = [
             'password' => 'Newpassword@12',
             'password_confirmation' => 'ewpassword@12',
             'email' => $user->email,
         ];
     
-        $response = $this->post('/resetpassword', $invalidData);        
-    
-        $response->assertRedirect();   
+        $response = $this->post('/resetpassword', $invalidData);      
+
+        // Assert the token record is still there in the PasswordReset table
+        $this->assertDatabasehas('password_resets', [
+            'email' => $invalidData['email'],
+        ]);
+
+        $response->assertRedirect();     //redirect back to the resetpassword form and display error
     }
       
 
