@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -34,6 +33,7 @@
 @php
 $navLinks = [
     'todolist' => 'Add tasks',
+    'projectform' => 'Add project',
     'taskdisplay' => 'Go to tasks page',
     'projectdisplay' => 'Go to Projects page',
     'users' => 'Users',
@@ -50,7 +50,6 @@ $navLinks = [
         </button>
     @endif
 @endforeach
-
 </body>
 </html>
 

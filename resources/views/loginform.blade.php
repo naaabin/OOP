@@ -1,9 +1,9 @@
-@extends('layouts.app')
-@section('title', 'LOGIN PAGE')
-@section('css')
+<html>
+<head>
+    <title>Login page </title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/projectform.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-@endsection   
+   
 <script>
     function func() {
         var confirmation = confirm('Are you sure you want to reset the password?');
@@ -15,9 +15,8 @@
         }
     }
 </script>
-
-
-@section('content')
+</head>
+<body>
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh; width: 80%;">
     <div class="border rounded p-5" style="background-color: #D3D3D3;">
  
@@ -70,5 +69,6 @@
         </form>
     </div>
 </div>
-@endsection
+</body>
+</html>
 

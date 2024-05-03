@@ -72,8 +72,8 @@
             <label>Projects:</label>
             @foreach ($projects as $project)
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="selectedProjects[]" value="{{ $project['Project_name'] }}">
-                    <label class="form-check-label">{{ $project['Project_name'] }}</label>
+                    <input type="checkbox" class="form-check-input" name="selectedProjects[]" value="{{ $project['project_name'] }}">
+                    <label class="form-check-label">{{ $project['project_name'] }}</label>
                 </div>
             @endforeach
         </div>

@@ -23,13 +23,13 @@
     <form method="POST" action="/projectadd">
         @csrf
         <label for="project">Project:</label>
-        <input type="text" name="project" id="project" required>
+        <input type="text" name="project_name" id="project" required>
         <label for="Description">Description:</label>
         <input type="text" name="description" id="Description" required>
         <button type="submit" name="add" class="btn btn-success">Add</button>   
     </form>
 </div>
-@include('projectdisplay')
 @endsection
+
 
 

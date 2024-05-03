@@ -13,10 +13,10 @@
         @csrf
         <h1>Project</h1>
         <input type="hidden" name="new_ID" value="{{ $project->project_id }}">
-        <input type="text" name="new_project" value="{{ old('new_project', $project->Project_name) }}">
+        <input type="text" name="new_project" value="{{ old('new_project', $project->project_name) }}">
 
         <h1>Description</h1>
-        <input type="text" name="new_description" value="{{ old('new_description' , $project->Description) }}">
+        <input type="text" name="new_description" value="{{ old('new_description' , $project->description) }}">
 
         <h1>Note</h1>
         <input type="text" name="note" value="">

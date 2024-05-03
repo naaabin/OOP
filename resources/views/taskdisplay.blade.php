@@ -48,13 +48,9 @@
 
 <h1>Tasks and their associated details</h1>
 
-@if(!empty($notaskerror))
-    <div style="text-align: center; font-size: 20px; color: red;">{{ $notaskerror }}</div>
-    @php
-        exit(); // or return;
-    @endphp
+@if($tasks->isEmpty())
+<div style="text-align: center; font-size: 30px; color: red;">No tasks found, please add tasks first. </div>
 @endif
-
 
 @foreach ($tasks as $task)
 <div class="task-container">
@@ -99,8 +95,8 @@
     <h3 class="task-info">No of files : {{ $Numfiles }}</h3>
     
     @php
-        $projectNames = $task->projects->pluck('Project_name')->implode(', ');
-        $Numprojects= $task->projects->pluck('Project_name')->count();
+        $projectNames = $task->projects->pluck('project_name')->implode(', ');
+        $Numprojects= $task->projects->pluck('project_name')->count();
     @endphp
     <h3 class="task-info">Project Names: {{ $projectNames }}</h3>
     <h3 class="task-info">Number of Projects : {{ $Numprojects }}</h3>

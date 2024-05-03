@@ -21,7 +21,7 @@
     <select name="ProjectDropdownData">
         <option value="">Select a project</option>
         @foreach($projects as $project)
-            <option value="{{ $project->project_id }}" {{ (session('selectedProject') == $project->project_id ? "selected":"") }}>{{ $project->Project_name }}</option>
+            <option value="{{ $project->project_id }}" {{ (session('selectedProject') == $project->project_id ? "selected":"") }}>{{ $project->project_name }}</option>
         @endforeach
     </select>
             <button type="submit" name="submit">Submit</button> 
@@ -53,7 +53,7 @@
         @foreach($task->projects as $project)
             <tr>
                 <td>{{$count++}}</td>
-                <td>{{ $project->Project_name }}</td>
+                <td>{{ $project->project_name }}</td>
                 <td>{{ $project->project_id }}</td>
                 <td>{{ $task->task_id }}</td>
                 <td>{{ $task->task }}</td>
@@ -77,7 +77,7 @@
     @foreach ($taskfilter as $task)
         <tr>
             <td>{{$count++}}</td>
-            <td>{{ $task->projects->firstWhere('project_id', session('selectedProject'))->Project_name }}</td>
+            <td>{{ $task->projects->firstWhere('project_id', session('selectedProject'))->project_name }}</td>
             <td>{{ session('selectedProject') }}</td>
             <td>{{ $task->task_id }}</td>
             <td>{{ $task->task }}</td>
@@ -96,7 +96,7 @@
                     @foreach($task->projects as $project)
                         <tr>
                             <td>{{$count++}}</td>
-                            <td>{{ $project->Project_name }}</td>
+                            <td>{{ $project->project_name }}</td>
                             <td>{{ $project->project_id }}</td>
                             <td>{{ $task->task_id }}</td>
                             <td>{{ $task->task }}</td>
@@ -116,7 +116,7 @@
         @foreach($projectfilter->tasks as $task)
                 <tr>
                     <td>{{$count++}}</td>
-                    <td>{{ $projectfilter->Project_name }}</td>
+                    <td>{{ $projectfilter->project_name }}</td>
                     <td>{{ $projectfilter->project_id }}</td>
                     <td>{{ $task->task_id }}</td>
                     <td>{{ $task->task }}</td>

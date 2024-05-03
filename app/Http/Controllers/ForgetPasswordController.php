@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\ResetPasswordMail;
 
 use Illuminate\Http\Request;
 
@@ -37,21 +38,19 @@ class ForgetPasswordController extends Controller
 
         // Construct the password reset URL
         $resetUrl = url("/resetpassword/{$token}?email={$emailInput}");
-
-        // Email subject
-        $subject = 'Password Reset Link';
     
-
         // Send the email using a view
         try {
-            Mail::send('email.resetpassword', ['resetUrl' => $resetUrl], function ($msg) use ($emailInput, $subject) {
-                $msg->to($emailInput)->subject($subject);
-            });
+            // Create a new instance of the mailable class
+            $mailable = new ResetPasswordMail($resetUrl);
+        
+            // Send the email
+            Mail::to($emailInput)->send($mailable);
+        
             return back()->with('message', 'Reset email sent successfully, check your inbox!');
-        } 
+        }
         catch (\Exception $e) 
         {
-            
             return back()->with('message', 'Mail sending failed');
         }
     }
@@ -104,6 +103,8 @@ class ForgetPasswordController extends Controller
             return back()->with('message', 'There was an error resetting your password.');
         }
     }   
+
+
 }
 
 

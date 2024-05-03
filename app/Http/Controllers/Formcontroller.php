@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,6 @@ class FormController extends Controller
           'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/'],
       ]);
 
-
         $user = new User();
         $user->name = $request['name'];
         $user->email = $request['email'];
@@ -27,7 +27,7 @@ class FormController extends Controller
         
         if($user->save())
         {
-            return redirect('/signupform')->with('message', 'User successfully signed up!');
+            return back()->with('message', 'User successfully signed up!');
         }
       
     }
@@ -47,14 +47,7 @@ class FormController extends Controller
 
       if (Auth::attempt($credentials)) 
       {
-           // Get the authenticated user
-            $user = Auth::user();
-
-            // Store the user ID in the session
-            session()->put('user_id', $user->id);
-            session()->put('user', $user->name);
-
-            return redirect('/projectform');
+          return redirect('/projectdisplay');
       } 
       else 
       {
@@ -62,20 +55,4 @@ class FormController extends Controller
       }
 
     }
-
-    public function project_form(Request $request)
-    {
-        $request->session()->forget('selectedUser');
-        $request->session()->forget('selectedProject');
-        
-        $proj = new ProjectManagerController();
-        return $proj->DisplayProjects();
-        
-        //$totalRows = DB::table('projects')->count(); // Get the total number of rows
-       // $paginationController = new PaginationController();
-       // $result = $paginationController->displayPagination('Project', $totalRows); 
-       
-       
-    }
-
 }

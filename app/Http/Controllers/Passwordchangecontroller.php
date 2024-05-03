@@ -16,11 +16,11 @@ class PasswordChangeController extends Controller
             'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/', 'confirmed'],
         ]);
 
-        // Make sure the session has started before accessing session data
-        if ($request->session()->has('user_id')) 
+      
+        if (Auth::check()) 
         {
-           
-             $user = User::where('id', session('user_id'))->first();
+            $userId = Auth::id();  // Get the ID of the authenticated user
+             $user = User::where('id', $userId)->first();
              
             if ($user && password_verify($request['oldpassword'], $user->password)) 
             {

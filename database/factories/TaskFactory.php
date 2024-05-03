@@ -20,7 +20,7 @@ class TaskFactory extends Factory
             'task' => $this->faker->sentence,
             'description' => $this->faker->sentence,
             'priority' => $this->faker->randomElement(['Yes', 'No']),
-            // Add other relevant attributes
+
         ];
     }
 }

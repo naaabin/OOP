@@ -4,11 +4,12 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Task;
+use App\Models\File;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\File>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TaskFile>
  */
-class FileFactory extends Factory
+class TaskFileFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,14 +18,16 @@ class FileFactory extends Factory
      */
     public function definition()
     {
-
+        // Get all task IDs
         $taskIds = Task::all()->pluck('task_id')->toArray();
+
+        // Get all file IDs
+        $fileIds = File::all()->pluck('file_id')->toArray();
+
         return [
-       
             'task_id' => $this->faker->randomElement($taskIds),
-            'file_name' => $this->faker->word . '.jpg', // Example: "1.jpg", "2.jpg", etc.
-            'file_loc' => 'uploads/' . $this->faker->word . '.jpg', // Example: "uploads/1.jpg", "uploads/2.jpg", etc.
+            'file_id' => $this->faker->randomElement($fileIds),
+       
         ];
     }
 }
-

@@ -1,14 +1,10 @@
-
-@extends('layouts.app')
-@section('title', 'Project page')
-@section('css')
+<html>
+<head>
+    <title>SignUp page </title>
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
  <link rel="stylesheet" type="text/css" href="{{ asset('css/signupform.css') }}">
- @endsection
-
-
-@section('content')
-
+</head>
+<body>
 @if(session('message'))
 <div class="alert alert-success" style="text-align: center; font-size: 30px;">
         {{ session('message') }}
@@ -75,5 +71,7 @@
         window.location.href = "loginform";
     }
 </script>
-@endsection
+</body>
+</html>
+
 

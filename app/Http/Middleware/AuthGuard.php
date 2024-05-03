@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthGuard
 {
@@ -16,9 +17,8 @@ class AuthGuard
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session()->has('user'))
+        if(Auth::check())
         {
-       
             return $next($request);
         }
         else

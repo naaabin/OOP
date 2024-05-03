@@ -1,11 +1,12 @@
-@extends('layouts.app')
-@section('title', 'Reset Password')
-@section('css')
+<html>
+<title>
+    Reset Password form
+</title>
+<head>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/resetpasswordform.css') }}">
-@endsection
-  
-
-    @section('content')
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+</body>
 
     <div class="container">
         @if(session('message'))
@@ -32,9 +33,10 @@
                 <label for="confirm_password">Confirm Password: </label>
                 <input type="password" name="password_confirmation" required><br>
             </div>
-
             <input type="submit" name="submit" value="Reset Password">
         </form>
     </div>
-    @endsection
+</body>
+</html>
+
 

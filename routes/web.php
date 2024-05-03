@@ -33,7 +33,6 @@ Route::get('/signupform', function () {
 Route::post('/loginform', [FormController::class ,'login_form'])->name('loginform');
 Route::post('/signupform', [FormController::class ,'signup_form'])->name('signupform');
 
-Route::post('/projectadd', [ProjectManagerController::class ,'add_project'])->name('projectadd');
 Route::get('/logout', [ProjectManagerController::class ,'logout'])->name('logout');
 Route::get('/forgetpassword', [ForgetPasswordController::class, 'forgetpassword']);
 Route::post('/forgetpassword', [ForgetPasswordController::class, 'forget_password']);
@@ -46,7 +45,8 @@ Route::post('/resetpassword', [ForgetPasswordController::class, 'changepassword'
 Route::middleware('AuthGuard')-> group(  function()  
 {
     
-    Route::get('/projectform' , [FormController::class ,'project_form'])->name('projectform');
+    Route::get('/projectform' , [ProjectManagerController::class ,'project_form'])->name('projectform');
+    Route::post('/projectadd', [ProjectManagerController::class ,'add_project'])->name('projectadd');
 
     Route::get('/changepassword', function () {
         return view('changepassword');

@@ -11,9 +11,17 @@ use App\Models\Pnote;
 
 class ProjectManagerController extends Controller
 {    
+
+    public function project_form(Request $request)
+    {
+        $request->session()->forget('selectedUser');
+        $request->session()->forget('selectedProject');
+        return view('projectform');
+    }
+
     public function add_project(Request $request)
     {
-        $projectname = $request->input('project');
+        $projectname = $request->input('project_name');
         $description = $request->input('description');
         $projectadd = new Project();
         $projectadd->project_name = $projectname;
@@ -21,7 +29,7 @@ class ProjectManagerController extends Controller
 
         if($projectadd->save())
         {
-            return back()->with('message', 'Project added successfully');
+            return redirect('/projectdisplay')->with('message', 'Project added successfully');
 
         }
         else
@@ -34,11 +42,11 @@ class ProjectManagerController extends Controller
     public function editprojectpage(Request $request)
     {
             $id = $request->query('project_id');
- 
+    
             $project = Project::find($id);
             if(is_null($project))
             {
-                abort(404, 'Invalid project id');    
+                abort(404);
             }
             else
             {
@@ -48,10 +56,21 @@ class ProjectManagerController extends Controller
 
     public function editproject(Request $request)
     {
-            if(!$request->has('back'))
+            if($request->has('back'))
             {
+                return redirect('/projectdisplay');
+            }
+
                 $id = $request->input('new_ID');
+              
+                // Retrieve the project instance
                 $project = Project::find($id);
+                
+                if (is_null($project)) 
+                {
+                    abort(404);
+                }
+
                 $request->validate([
                 
                     'note' => 'required|string'
@@ -66,18 +85,19 @@ class ProjectManagerController extends Controller
                 $note->save();
         
                 // Update the project
-                $project->Project_name = $request->input('new_project');
-                $project->Description  = $request->input('new_description');
+                $project->project_name = $request->input('new_project');
+                $project->description  = $request->input('new_description');
                 
-                
-                $project->save();
-                return redirect('/projectform')->with('message', 'The selected project has been updated successfully');
-            }
-            else 
-            {
-                return redirect('/projectform');
-            }
-        
+                if($project->save())
+                {
+                    return redirect('/projectdisplay')->with('message', 'The selected project has been updated successfully');
+
+                }
+                else
+                {
+                    return redirect('/projectdisplay')->with('error', 'Project Update failed, please try again');
+
+                }   
     }
     
     public function deleteproject(Request $request)
@@ -93,11 +113,11 @@ class ProjectManagerController extends Controller
                 $delete_status = Project::destroy($id); 
                 if($delete_status)
                 {
-                    return redirect('/projectform')->with('message', 'The selected project has been deleted successfully');
+                    return redirect('/projectdisplay')->with('message', 'The selected project has been deleted successfully');
                 }
                 else
                 {
-                    return redirect('/projectform')->with('error', 'project deletion failed');
+                    return redirect('/projectdisplay')->with('error', 'Project deletion failed');
                 }
             }
     }
@@ -105,8 +125,7 @@ class ProjectManagerController extends Controller
 
     public function logout(Request $request)
     {
-        
-         
+    
             Auth::logout();
             $request->session()->flush();
 
@@ -118,21 +137,11 @@ class ProjectManagerController extends Controller
     {
         
         $projects = Project::paginate(3);
-        $noprojecterror = '';
-        if($projects->isEmpty())
-        {
-            $noprojecterror = 'No record found.';
-        }
-
-       // $totalRows = DB::table('projects')->count(); // Get the total number of rows
-        //$paginationController = new PaginationController();
-       // $result = $paginationController->displayPagination('Project', $totalRows); 
-
-        return view('projectform', [
-        'noprojecterror' => $noprojecterror,
+    
+        return view('projectdisplay', [
+       
         'projects' => $projects
-       ]);
-        
+       ]);   
     }
 
     public function userdashboard()
@@ -197,7 +206,6 @@ class ProjectManagerController extends Controller
         $id = $request->query('project_id');
         $projects = Project::where('project_id', $id)->with('notes')->get();
         return view('ProjectUpdateStatusPage', ['projects'=> $projects]);
-     
     }
-    
+       
 }
